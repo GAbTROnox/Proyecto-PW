@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>hospedaPaz</title>
+</head>
+
+<body class="bg-white">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 py-5 px-8">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-[#FF385C] rounded"></div>
+        <span class="tracking-wide text-[#FF385C]">hospedaPaz</span>
+      </div>
+
+      <nav class="hidden md:flex gap-6">
+        <button class="text-gray-800 hover:bg-gray-50 px-3 py-2 rounded-full">Lugares para quedarse</button>
+        <button class="text-gray-800 hover:bg-gray-50 px-3 py-2 rounded-full">Experiencias</button>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <button class="text-gray-800 hover:bg-gray-50 p-2 rounded-full">
+          🌐
+        </button>
+        <div class="flex items-center gap-3 border border-gray-300 rounded-full py-2 px-3 hover:shadow-md transition-shadow bg-white">
+          ☰
+          <div class="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center text-white">
+            👤
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Search Bar -->
+  <div class="bg-white border-b border-gray-100 py-8 px-8">
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-white border border-gray-300 rounded-full p-2 flex items-center justify-between shadow-md hover:shadow-lg transition-shadow">
+        <div class="flex-1 px-6 border-r border-gray-200">
+          <div class="text-xs text-gray-800">Ubicación</div>
+          <div class="text-sm text-gray-500">¿A dónde vas?</div>
+        </div>
+        <div class="flex-1 px-6 border-r border-gray-200">
+          <div class="text-xs text-gray-800">Fecha</div>
+          <div class="text-sm text-gray-500">Agrega fechas</div>
+        </div>
+        <div class="flex-1 px-6">
+          <div class="text-xs text-gray-800">Huéspedes</div>
+          <div class="text-sm text-gray-500">¿Cuántos?</div>
+        </div>
+        <button class="bg-[#FF385C] text-white rounded-full p-3 hover:bg-[#E31C5F] transition-colors">
+          🔍
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="bg-white border-b border-gray-100 py-5 px-8">
+    <div class="max-w-7xl mx-auto flex gap-4 overflow-x-auto">
+      <button class="px-4 py-2.5 border border-gray-300 rounded-full hover:border-gray-800 hover:shadow-sm">La Paz Centro</button>
+      <button class="px-4 py-2.5 border border-gray-300 rounded-full hover:border-gray-800 hover:shadow-sm">El Alto</button>
+      <button class="px-4 py-2.5 border border-gray-300 rounded-full hover:border-gray-800 hover:shadow-sm">Sopocachi</button>
+      <button class="px-4 py-2.5 border border-gray-300 rounded-full hover:border-gray-800 hover:shadow-sm">Zona Sur</button>
+      <button class="px-4 py-2.5 border border-gray-300 rounded-full hover:border-gray-800 hover:shadow-sm">Calacoto</button>
+      <button class="px-4 py-2.5 border border-gray-300 rounded-full hover:border-gray-800 hover:shadow-sm">San Miguel</button>
+      <button class="px-4 py-2.5 border border-gray-300 rounded-full hover:border-gray-800 hover:shadow-sm">Miraflores</button>
+      <button class="px-4 py-2.5 border border-gray-300 rounded-full hover:border-gray-800 hover:shadow-sm">Achumani</button>
+    </div>
+  </div>
+
+  <!-- Category Filters -->
+  <div class="bg-white border-b border-gray-100 py-5 px-8">
+    <div class="max-w-7xl mx-auto flex gap-4 overflow-x-auto">
+      <button class="px-4 py-2.5 border border-gray-300 rounded-full hover:border-gray-800 hover:shadow-sm">Casas</button>
+      <button class="px-4 py-2.5 border border-gray-300 rounded-full hover:border-gray-800 hover:shadow-sm">Apartamentos</button>
+      <button class="px-4 py-2.5 border border-gray-300 rounded-full hover:border-gray-800 hover:shadow-sm">Cabañas</button>
+      <button class="px-4 py-2.5 border border-gray-300 rounded-full hover:border-gray-800 hover:shadow-sm">Playas</button>
+      <button class="px-4 py-2.5 border border-gray-300 rounded-full hover:border-gray-800 hover:shadow-sm">Montaña</button>
+      <button class="px-4 py-2.5 border border-gray-300 rounded-full hover:border-gray-800 hover:shadow-sm">Ciudad</button>
+      <button class="px-4 py-2.5 border border-gray-300 rounded-full hover:border-gray-800 hover:shadow-sm">Rural</button>
+      <button class="px-4 py-2.5 border border-gray-300 rounded-full hover:border-gray-800 hover:shadow-sm">Lujo</button>
+    </div>
+  </div>
+
+  <!-- Properties Grid -->
+  <main class="max-w-7xl mx-auto px-8 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Property 1 -->
+      <div class="border rounded-xl overflow-hidden shadow hover:shadow-lg">
+        <img src="https://images.unsplash.com/photo-1663756915301-2ba688e078cf?w=600&q=80" class="h-48 w-full object-cover" />
+        <div class="p-4">
+          <h3 class="text-gray-800 font-semibold">Sopocachi</h3>
+          <p class="text-gray-500">$850 — ⭐ 4.8</p>
+        </div>
+      </div>
+
+      <!-- Las otras tarjetas se pueden replicar igual -->
+      <div class="border rounded-xl p-4 text-gray-700">Calacoto — $950 — ⭐ 4.9</div>
+      <div class="border rounded-xl p-4 text-gray-700">Zona Sur — $1,200 — ⭐ 4.7</div>
+      <div class="border rounded-xl p-4 text-gray-700">San Miguel — $750 — ⭐ 4.6</div>
+      <div class="border rounded-xl p-4 text-gray-700">Miraflores — $800 — ⭐ 4.8</div>
+      <div class="border rounded-xl p-4 text-gray-700">Achumani — $1,100 — ⭐ 4.9</div>
+      <div class="border rounded-xl p-4 text-gray-700">El Alto — $600 — ⭐ 4.7</div>
+      <div class="border rounded-xl p-4 text-gray-700">La Paz Centro — $900 — ⭐ 4.8</div>
+
+    </div>
+  </main>
+
+  <!-- Inspiration Section -->
+  <section class="bg-gray-50 py-12 px-8 mt-12">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-gray-800 mb-6">Inspiración para escapadas futuras</h2>
+
+      <div class="flex gap-8 border-b border-gray-300 mb-8">
+        <button class="pb-3 border-b-2 border-gray-800 text-gray-800">Popular</button>
+        <button class="pb-3 text-gray-600 hover:text-gray-800">Arte y cultura</button>
+        <button class="pb-3 text-gray-600 hover:text-gray-800">Naturaleza</button>
+        <button class="pb-3 text-gray-600 hover:text-gray-800">Montañas</button>
+        <button class="pb-3 text-gray-600 hover:text-gray-800">Aventura</button>
+        <button class="pb-3 text-gray-600 hover:text-gray-800">Ciudad</button>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8">
+        <div><h3>La Paz</h3><p class="text-sm text-gray-500">Alquileres vacacionales</p></div>
+        <div><h3>Santa Cruz</h3><p class="text-sm text-gray-500">Casas vacacionales</p></div>
+        <div><h3>Cochabamba</h3><p class="text-sm text-gray-500">Alquileres vacacionales</p></div>
+        <div><h3>Oruro</h3><p class="text-sm text-gray-500">Villas vacacionales</p></div>
+        <div><h3>Potosí</h3><p class="text-sm text-gray-500">Condominios vacacionales</p></div>
+        <div><h3>Chuquisaca</h3><p class="text-sm text-gray-500">Apartamentos vacacionales</p></div>
+        <div><h3>Tarija</h3><p class="text-sm text-gray-500">Alquileres vacacionales</p></div>
+        <div><h3>Beni</h3><p class="text-sm text-gray-500">Cabañas vacacionales</p></div>
+        <div><h3>Pando</h3><p class="text-sm text-gray-500">Alquileres vacacionales</p></div>
+      </div>
+
+      <div class="mt-8">
+        <button class="text-sm text-gray-800 hover:underline flex items-center gap-2">
+          Mostrar más →
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-50 border-t border-gray-200 py-4 px-8">
+    <div class="max-w-7xl mx-auto flex items-center justify-between text-sm">
+      <div class="flex items-center gap-3 text-gray-800">
+        <span>© 2025 hospedaPaz, Inc.</span>
+        <span>·</span>
+        <button class="hover:underline">Privacidad</button>
+        <span>·</span>
+        <button class="hover:underline">Términos</button>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button class="flex items-center gap-2 text-gray-800 hover:underline">🌐 Español (BO)</button>
+        <button class="flex items-center gap-2 text-gray-800 hover:underline">$ USD</button>
+        <div class="flex items-center gap-3">
+          <button class="hover:text-gray-600">📘</button>
+          <button class="hover:text-gray-600">🐦</button>
+          <button class="hover:text-gray-600">📸</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
