@@ -436,7 +436,7 @@ body {
  
 /* --- Pie de Página (Footer) --- */
  
-.footer { /* Clase 'footer' */
+.footer {
     padding: 20px 80px;
     border-top: 1px solid var(--borde-claro);
     background-color: var(--fondo-claro);
@@ -445,21 +445,13 @@ body {
     align-items: center;
     font-size: 14px;
     color: var(--texto-oscuro);
-}
- 
-.footer p {
     flex-grow: 1;
-}
- 
-.footer nav {
-    display: flex;
-    gap: 15px;
-    margin: 0 30px;
 }
  
 .footer nav a {
     color: var(--texto-oscuro);
     text-decoration: none;
+
 }
  
 .footer nav a:hover {
@@ -558,19 +550,13 @@ body {
     .menuBtnFiltro {
         display: none;
     }
-   
-    .footer {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
-    }
- 
-    .footer nav, .footerRight {
-        margin: 0;
-    }
- 
-    .gridInspiracion {
-        grid-template-columns: repeat(2, 1fr);
-    }
+}
+footer{
+    display: flex;
+    gap: 20px;
+}
+.info{
+    display: flex;
+    gap: 20px;
 }
  
