@@ -1,0 +1,576 @@
+/* Variables */
+:root {
+    --rojo-airbnb: #ff385c;
+    --texto-oscuro: #222222;
+    --texto-claro: #717171;
+    --borde-claro: #dddddd;
+    --fondo-claro: #f7f7f7;
+}
+ 
+/* Estilos base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+ 
+body {
+    color: var(--texto-oscuro);
+}
+ 
+/* --- Encabezado y Barra de Búsqueda --- */
+ 
+.encabezado {
+    border-bottom: 1px solid var(--borde-claro);
+    padding: 0 80px;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1000;
+}
+ 
+.Parte.super { /* Clase 'Parte super' */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+}
+ 
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--rojo-airbnb);
+}
+ 
+.logo i {
+    font-size: 28px;
+}
+ 
+.logo h2 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-right: 20px;
+}
+ 
+.navegacion {
+    display: flex;
+    gap: 20px;
+    padding: 10px 0;
+}
+ 
+/* Botones de Navegación */
+.btnAlojamiento, .btnExperiencias, .btnExperienciasOnline {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--texto-claro);
+    transition: color 0.3s;
+}
+ 
+.btnAlojamiento:hover, .btnExperiencias:hover, .btnExperienciasOnline:hover {
+    color: var(--texto-oscuro);
+}
+ 
+.btnAlojamiento { /* Aplicamos estilo activo solo a Alojamientos por defecto */
+    color: var(--texto-oscuro);
+    position: relative;
+}
+ 
+.menuUsuario {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+ 
+.btnAnfitrion {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 22px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+ 
+.btnAnfitrion:hover {
+    background-color: var(--fondo-claro);
+}
+ 
+.idioma, .perfil {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px;
+}
+ 
+.idioma {
+    color: var(--texto-oscuro);
+}
+ 
+.perfil {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--borde-claro);
+    border-radius: 22px;
+    padding: 5px 10px;
+    transition: box-shadow 0.2s;
+}
+ 
+.perfil:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+}
+ 
+.perfil .fa-circle-user {
+    font-size: 30px;
+    color: var(--texto-claro);
+}
+ 
+/* Barra de Búsqueda (Parte central) */
+.Busqueda { /* Clase 'Busqueda' */
+    display: flex;
+    justify-content: center;
+    padding: 16px 0;
+}
+ 
+.busqueda {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--borde-claro);
+    border-radius: 40px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+ 
+.campoBusqueda {
+    padding: 8px 20px;
+    cursor: pointer;
+    min-width: 150px;
+    transition: background-color 0.2s;
+    border-radius: 40px;
+}
+ 
+.campoBusqueda:hover {
+    background-color: var(--fondo-claro);
+}
+ 
+.campoBusqueda h3 {
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 2px;
+}
+ 
+.campoBusqueda input, .campoBusqueda div {
+    font-size: 14px;
+    color: var(--texto-claro);
+    border: none;
+    outline: none;
+    background: none;
+}
+ 
+.divisor {
+    height: 30px;
+    width: 1px;
+    background-color: var(--borde-claro);
+}
+ 
+.huespedes { /* Clase 'huespedes' */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-right: 8px;
+}
+ 
+.btnBuscar {
+    background-color: var(--rojo-airbnb);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 12px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+ 
+.btnBuscar i {
+    font-size: 16px;
+    font-weight: 900;
+}
+ 
+/* --- Barra de Filtros --- */
+ 
+.filtros { /* Clase 'filtros' */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 80px;
+    border-bottom: 1px solid var(--borde-claro);
+}
+ 
+.listaFiltros { /* Clase 'listaFiltros' */
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+ 
+.listaFiltros::-webkit-scrollbar {
+    display: none;
+}
+ 
+.btnFiltro { /* Clase 'btnFiltro' */
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--texto-claro);
+    padding: 5px 0;
+    transition: color 0.3s;
+    white-space: nowrap;
+}
+ 
+.btnFiltro i {
+    font-size: 24px;
+}
+ 
+.btnFiltro:hover {
+    color: var(--texto-oscuro);
+    opacity: 0.8;
+}
+ 
+/* Puedes añadir una clase 'activo' al primer botón de filtro para que se vea seleccionado */
+.btnFiltro:first-child {
+    color: var(--texto-oscuro);
+    position: relative;
+}
+ 
+.btnFiltro:first-child::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    width: 100%;
+    height: 2px;
+    background-color: var(--texto-oscuro);
+}
+ 
+.menuBtnFiltro {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    border: 1px solid var(--borde-claro);
+    border-radius: 12px;
+    padding: 10px 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 20px;
+}
+ 
+/* --- Grid de Propiedades (Main) --- */
+ 
+.propiedades { /* Clase 'propiedades' */
+    padding: 40px 80px;
+    display: grid;
+    /* Ajusta el ancho de las columnas para que quepan varias tarjetas */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+ 
+.propiedad { /* Clase 'propiedad' */
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 350px;
+    position: relative;
+}
+ 
+.propiedad img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.3s;
+}
+ 
+.propiedad:hover img {
+    transform: scale(1.02);
+}
+ 
+.info { /* Clase 'info' */
+    padding-top: 10px;
+}
+ 
+.tituloRating { /* Clase 'tituloRating' */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+ 
+.tituloRating h3 {
+    font-size: 16px;
+    font-weight: 600;
+}
+ 
+.rating {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    gap: 4px;
+}
+ 
+.rating i {
+    color: var(--texto-oscuro);
+    font-size: 12px;
+}
+ 
+.distancia, .fecha {
+    color: var(--texto-claro);
+    font-size: 15px;
+    line-height: 1.4;
+}
+ 
+.precioNoche { /* Clase 'precioNoche' */
+    font-size: 15px;
+    margin-top: 4px;
+}
+ 
+.precioNoche span {
+    font-weight: 600;
+    color: var(--texto-oscuro);
+}
+ 
+/* --- Sección de Inspiración --- */
+ 
+.inspiracion { /* Clase 'inspiracion' */
+    padding: 60px 80px;
+    border-top: 1px solid var(--borde-claro);
+}
+ 
+.inspiracion h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+ 
+.pestañasInspiracion { /* Clase 'pestañasInspiracion' */
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--borde-claro);
+}
+ 
+.pestaña {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--texto-claro);
+    padding: 10px 0;
+    position: relative;
+}
+ 
+.pestaña:first-child { /* Pestaña 'Popular' como activa por defecto */
+    color: var(--texto-oscuro);
+    font-weight: 600;
+}
+ 
+.pestaña:first-child::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--texto-oscuro);
+}
+ 
+.gridInspiracion { /* Clase 'gridInspiracion' */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-bottom: 30px;
+}
+ 
+.item-ciudad h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+ 
+.item-ciudad p {
+    font-size: 14px;
+    color: var(--texto-claro);
+}
+ 
+.mostrarMas { /* Clase 'mostrarMas' */
+    background: none;
+    border: 1px solid var(--texto-oscuro);
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+ 
+.mostrarMas:hover {
+    background-color: var(--fondo-claro);
+}
+ 
+/* --- Pie de Página (Footer) --- */
+ 
+.footer { /* Clase 'footer' */
+    padding: 20px 80px;
+    border-top: 1px solid var(--borde-claro);
+    background-color: var(--fondo-claro);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: var(--texto-oscuro);
+}
+ 
+.footer p {
+    flex-grow: 1;
+}
+ 
+.footer nav {
+    display: flex;
+    gap: 15px;
+    margin: 0 30px;
+}
+ 
+.footer nav a {
+    color: var(--texto-oscuro);
+    text-decoration: none;
+}
+ 
+.footer nav a:hover {
+    text-decoration: underline;
+}
+ 
+.footerRight { /* Clase 'footerRight' */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+ 
+.footerRight span {
+    font-weight: 600;
+}
+ 
+.footerRight i {
+    cursor: pointer;
+    font-size: 18px;
+}
+ 
+.footerRight i:hover {
+    opacity: 0.7;
+}
+ 
+/* Media Queries (Ajustes de visibilidad) */
+@media (max-width: 1200px) {
+    .encabezado, .filtros, .propiedades, .inspiracion, .footer {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+ 
+    .gridInspiracion {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+ 
+@media (max-width: 900px) {
+    .Parte.super {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+ 
+    .logo, .menuUsuario {
+        margin-bottom: 10px;
+    }
+   
+    .navegacion {
+        display: none;
+    }
+ 
+    .Busqueda {
+        padding: 16px 0 0;
+    }
+ 
+    .busqueda {
+        width: 100%;
+        max-width: 400px;
+        flex-direction: column;
+        border: 1px solid var(--borde-claro);
+        box-shadow: none;
+    }
+ 
+    .campoBusqueda {
+        width: 100%;
+        border-radius: 40px;
+        padding: 12px 20px;
+    }
+ 
+    .divisor {
+        display: none;
+    }
+ 
+    .huespedes {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0;
+    }
+ 
+    .btnBuscar {
+        position: static;
+        margin-right: 15px;
+    }
+ 
+    .filtros {
+        padding: 20px 40px 0;
+        border-bottom: none;
+    }
+ 
+    .listaFiltros {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 15px;
+    }
+ 
+    .menuBtnFiltro {
+        display: none;
+    }
+   
+    .footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+ 
+    .footer nav, .footerRight {
+        margin: 0;
+    }
+ 
+    .gridInspiracion {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+ 
