@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión Simple</title>
+    <link rel="stylesheet" href="registro.css"> 
+</head>
+<body>
+    <div id="auth-modal" class="modal-backdrop">
+        <div class="modal-content">
+            <a href="index.html" class="x">
+                <p>X</p>
+            </a>
+            <div class="modal-header">
+                <h3><b>Iniciar sesión o registrarse</b></h3>
+            </div>
+            <div class="modal-body">
+                <h2 class="welcome-title"><b>Bienvenido a BoliStay</b></h2>
+                <form class="auth-form">
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="Correo electrónico" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" placeholder="Contraseña" required>
+                    </div>
+                    <p class="account-notice">
+                        Lee nuestra politica de privacidad. <a href="#">Política de Privacidad</a>
+                    </p>    
+                    <button type="submit" class="continue-btn">Continuar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="registro.js"></script>
+</body>
+</html>
