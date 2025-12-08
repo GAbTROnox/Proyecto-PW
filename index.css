@@ -18,7 +18,7 @@ a {
 }
 
 /* ========== ENCABEZADO ========== */
-.main-header {
+.encabezado-principal {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -45,13 +45,14 @@ a {
 }
 
 /* Menú de navegación */
-.main-nav ul {
+.navegacion-principal ul {
     list-style: none;
     display: flex;
-    gap: 40px;
+    gap: 100px;
+    font-weight: bold ;
 }
 
-.main-nav a {
+.navegacion-principal a {
     color: #222222;
     font-weight: 500;
     padding: 10px 15px;
@@ -59,12 +60,12 @@ a {
     transition: background-color 0.3s;
 }
 
-.main-nav a:hover {
+.navegacion-principal a:hover {
     background-color: #f0f0f0;
 }
 
 /* Icono de perfil */
-.profile-icon {
+.icono-perfil {
     font-size: 2em;
     color: #717171;
     padding: 8px;
@@ -72,16 +73,16 @@ a {
     transition: background-color 0.3s;
 }
 
-.profile-icon:hover {
+.icono-perfil:hover {
     background-color: #f0f0f0;
 }
 
 /* Menú hamburguesa (oculto por defecto) */
-.menu-toggle {
+.alternador-menu {
     display: none;
 }
 
-.menu-icon {
+.icono-menu {
     display: none;
     font-size: 1.8em;
     cursor: pointer;
@@ -89,31 +90,31 @@ a {
 }
 
 /* ========== SECCIÓN HERO ========== */
-.hero-section {
+.seccion-portada {
     background: linear-gradient(135deg, #ff385c10, #00a69910);
     padding: 80px 60px;
     text-align: center;
 }
 
-.hero-section h1 {
+.seccion-portada h1 {
     font-size: 2.8em;
     margin-bottom: 15px;
     color: #222222;
 }
 
-.hero-section p {
+.seccion-portada p {
     font-size: 1.2em;
     color: #717171;
     margin-bottom: 40px;
 }
 
 /* Barra de búsqueda */
-.search-bar {
+.barra-busqueda {
     max-width: 700px;
     margin: 0 auto;
 }
 
-.search-bar form {
+.barra-busqueda form {
     display: flex;
     gap: 10px;
     background: white;
@@ -122,7 +123,7 @@ a {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.search-bar input {
+.barra-busqueda input {
     flex: 1;
     padding: 15px 25px;
     border: none;
@@ -131,7 +132,11 @@ a {
     outline: none;
 }
 
-.search-bar button {
+.barra-busqueda input:focus {
+    outline: none;
+}
+
+.barra-busqueda button {
     background-color: #ff385c;
     color: white;
     padding: 15px 35px;
@@ -146,25 +151,25 @@ a {
     transition: background-color 0.3s;
 }
 
-.search-bar button:hover {
+.barra-busqueda button:hover {
     background-color: #e00040;
 }
 
 /* ========== ALOJAMIENTOS ========== */
-.accommodation-list {
+.seccion-listados {
     padding: 60px;
     max-width: 1400px;
     margin: 0 auto;
 }
 
-.accommodation-list h2 {
+.seccion-listados h2 {
     font-size: 2em;
     margin-bottom: 40px;
     color: #222222;
 }
 
 /* Grid de tarjetas */
-.listings-grid {
+.grid-listados {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
@@ -172,40 +177,40 @@ a {
 }
 
 /* Tarjeta de hotel */
-.listing-card {
+.tarjeta-alojamiento {
     background-color: white;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer; /* IMPORTANTE: Todas las tarjetas son clickeables */
+    cursor: pointer;
 }
 
-.listing-card:hover {
+.tarjeta-alojamiento:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
 
 /* Imagen del hotel */
-.image-container {
+.contenedor-imagen {
     position: relative;
     height: 250px;
     overflow: hidden;
 }
 
-.listing-image {
+.imagen-alojamiento {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s;
 }
 
-.listing-card:hover .listing-image {
+.tarjeta-alojamiento:hover .imagen-alojamiento {
     transform: scale(1.05);
 }
 
-/* Badge (etiquetas como "Nuevo", "Popular") */
-.badge {
+/* Etiqueta (badges como "Nuevo", "Popular") */
+.etiqueta {
     position: absolute;
     top: 12px;
     left: 12px;
@@ -218,17 +223,17 @@ a {
 }
 
 /* Información del hotel */
-.info {
+.datos-tarjeta {
     padding: 20px;
 }
 
-.info h3 {
+.datos-tarjeta h3 {
     font-size: 1.2em;
     margin-bottom: 8px;
     color: #222222;
 }
 
-.location {
+.ubicacion-detalle {
     color: #717171;
     font-size: 0.9em;
     margin-bottom: 8px;
@@ -237,7 +242,7 @@ a {
     gap: 5px;
 }
 
-.rating {
+.puntuacion-estrellas {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -245,25 +250,25 @@ a {
     font-size: 0.9em;
 }
 
-.rating i {
+.puntuacion-estrellas i {
     color: #FFB800;
 }
 
-.price {
+.costo-noche {
     font-size: 1.3em;
     font-weight: 700;
     color: #222222;
     margin-top: 10px;
 }
 
-.price span {
+.costo-noche span {
     font-size: 0.7em;
     font-weight: 400;
     color: #717171;
 }
 
 /* ========== PAGINACIÓN ========== */
-.pagination {
+.contenedor-paginacion {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -271,7 +276,7 @@ a {
     margin-top: 40px;
 }
 
-.pagination-btn {
+.btn-control-pagina {
     background-color: white;
     color: #222222;
     border: 2px solid #dddddd;
@@ -286,46 +291,46 @@ a {
     transition: all 0.3s;
 }
 
-.pagination-btn:hover:not(:disabled) {
+.btn-control-pagina:hover:not(:disabled) {
     background-color: #ff385c;
     color: white;
     border-color: #ff385c;
 }
 
-.pagination-btn:disabled {
+.btn-control-pagina:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-.page-info {
+.info-pagina {
     font-size: 1.1em;
     color: #717171;
 }
 
-.page-info span {
+.info-pagina span {
     font-weight: 700;
     color: #222222;
 }
 
 /* ========== DESTINOS POPULARES ========== */
-.destinations-section {
+.seccion-destinos {
     padding: 60px;
     background-color: white;
 }
 
-.destinations-section h2 {
+.seccion-destinos h2 {
     font-size: 2em;
     margin-bottom: 40px;
     color: #222222;
 }
 
-.destinations-grid {
+.grid-destinos {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
 }
 
-.destination-card {
+.tarjeta-destino {
     position: relative;
     height: 300px;
     border-radius: 12px;
@@ -334,22 +339,22 @@ a {
     transition: transform 0.3s;
 }
 
-.destination-card:hover {
+.tarjeta-destino:hover {
     transform: translateY(-8px);
 }
 
-.destination-card img {
+.tarjeta-destino img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s;
 }
 
-.destination-card:hover img {
+.tarjeta-destino:hover img {
     transform: scale(1.1);
 }
 
-.destination-card::before {
+.tarjeta-destino::before {
     content: '';
     position: absolute;
     top: 0;
@@ -360,7 +365,7 @@ a {
     z-index: 1;
 }
 
-.destination-info {
+.info-destino {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -370,58 +375,58 @@ a {
     color: white;
 }
 
-.destination-info h3 {
+.info-destino h3 {
     font-size: 1.6em;
     margin-bottom: 5px;
 }
 
-.destination-info p {
+.info-destino p {
     font-size: 1em;
     opacity: 0.9;
 }
 
 /* ========== FOOTER ========== */
-.main-footer {
+.pie-pagina-principal {
     background-color: #222222;
     color: white;
     padding: 50px 60px 30px;
 }
 
-.footer-content {
+.contenido-pie {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 40px;
     margin-bottom: 30px;
 }
 
-.footer-column h4 {
+.columna-pie h4 {
     font-size: 1.2em;
     margin-bottom: 15px;
 }
 
-.footer-column p {
+.columna-pie p {
     color: #cccccc;
     line-height: 1.7;
 }
 
-.footer-column ul {
+.columna-pie ul {
     list-style: none;
 }
 
-.footer-column li {
+.columna-pie li {
     margin-bottom: 10px;
 }
 
-.footer-column a {
+.columna-pie a {
     color: #cccccc;
     transition: color 0.3s;
 }
 
-.footer-column a:hover {
+.columna-pie a:hover {
     color: white;
 }
 
-.footer-bottom {
+.pie-inferior {
     text-align: center;
     padding-top: 20px;
     border-top: 1px solid #444444;
@@ -431,15 +436,15 @@ a {
 /* ========== RESPONSIVE (MÓVILES) ========== */
 @media (max-width: 850px) {
     /* Header responsive */
-    .main-header {
+    .encabezado-principal {
         padding: 15px 20px;
     }
 
-    .menu-icon {
+    .icono-menu {
         display: block;
     }
 
-    .main-nav {
+    .navegacion-principal {
         display: none;
         position: absolute;
         top: 70px;
@@ -450,83 +455,83 @@ a {
         padding: 20px;
     }
 
-    .main-nav ul {
+    .navegacion-principal ul {
         flex-direction: column;
         gap: 0;
     }
 
-    .main-nav li {
+    .navegacion-principal li {
         width: 100%;
         border-bottom: 1px solid #eeeeee;
     }
 
-    .main-nav li:last-child {
+    .navegacion-principal li:last-child {
         border-bottom: none;
     }
 
-    .main-nav a {
+    .navegacion-principal a {
         display: block;
         padding: 15px;
         border-radius: 0;
     }
 
     /* Mostrar menú cuando checkbox está marcado */
-    .menu-toggle:checked ~ .main-nav {
+    .alternador-menu:checked ~ .navegacion-principal {
         display: block;
     }
 
     /* Hero responsive */
-    .hero-section {
+    .seccion-portada {
         padding: 60px 20px;
     }
 
-    .hero-section h1 {
+    .seccion-portada h1 {
         font-size: 2em;
     }
 
-    .search-bar form {
+    .barra-busqueda form {
         flex-direction: column;
         border-radius: 20px;
     }
 
-    .search-bar input {
+    .barra-busqueda input {
         width: 100%;
     }
 
-    .search-bar button {
+    .barra-busqueda button {
         width: 100%;
         justify-content: center;
     }
 
     /* Contenido responsive */
-    .accommodation-list,
-    .destinations-section,
-    .main-footer {
+    .seccion-listados,
+    .seccion-destinos,
+    .pie-pagina-principal {
         padding: 40px 20px;
     }
 
-    .listings-grid {
+    .grid-listados {
         grid-template-columns: 1fr;
     }
 
     /* Paginación responsive */
-    .pagination {
+    .contenedor-paginacion {
         flex-direction: column;
         gap: 15px;
     }
 
-    .pagination-btn {
+    .btn-control-pagina {
         width: 100%;
         justify-content: center;
     }
 }
 
 @media (max-width: 500px) {
-    .hero-section h1 {
+    .seccion-portada h1 {
         font-size: 1.6em;
     }
 
-    .destinations-grid {
+    .grid-destinos {
         grid-template-columns: 1fr;
     }
 }

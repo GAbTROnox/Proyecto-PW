@@ -8,46 +8,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- ENCABEZADO -->
-    <header class="main-header">
-        <!-- Logo -->
-        <a href="#" class="logo">
+    <header class="encabezado-principal">
+        <a href="index.html" class="logo">
             <i class="fab fa-airbnb"></i>
             <span>BoliStay</span>
         </a>
+
         
-        <!-- Checkbox para menú móvil (oculto) -->
-        <input type="checkbox" id="menu-toggle" class="menu-toggle">
-        
-        <!-- Icono hamburguesa (solo visible en móvil) -->
-        <label for="menu-toggle" class="menu-icon">
-            <i class="fas fa-bars"></i>
-        </label>
-        
-        <!-- Menú de navegación -->
-        <nav class="main-nav">
+        <nav class="navegacion-principal">
             <ul>
-                <li><a href="#alojamientos">Alojamientos</a></li>
-                <li><a href="#destinos">Destinos</a></li>
-                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#seccion-alojamientos"><b>Alojamientos</b></a></li>
+                <li><a href="#seccion-destinos-populares"><b>Destinos</b></a></li>
             </ul>
         </nav>
-        
-        <!-- Botón de usuario -->
-        <a href="registro.html" class="profile-icon">
+            <input type="checkbox" id="alternador-menu" class="alternador-menu">
+        <label for="alternador-menu" class="icono-menu">
+            <i class="fas fa-bars"></i>
+        </label>
+        <a href="Registro.html" class="icono-perfil">
             <i class="fas fa-user-circle"></i>
         </a>
     </header>
 
     <main>
-        <!-- SECCIÓN DE BÚSQUEDA -->
-        <section class="hero-section">
+        <section class="seccion-portada">
             <h1>Encuentra tu alojamiento en Bolivia</h1>
             <p>Los mejores hoteles y hospedajes del país</p>
             
-            <div class="search-bar">
-                <form id="search-form">
-                    <input type="text" id="destination" placeholder="¿A dónde quieres ir?">
+            <div class="barra-busqueda">
+                <form id="formulario-busqueda">
+                    <input type="text" id="input-destino" placeholder="¿A dónde quieres ir? (Ej: La Paz)">
                     <button type="submit">
                         <i class="fas fa-search"></i>
                         Buscar
@@ -56,59 +46,54 @@
             </div>
         </section>
 
-        <!-- LISTA DE ALOJAMIENTOS -->
-        <section class="accommodation-list" id="alojamientos">
+        <section class="seccion-listados" id="seccion-alojamientos">
             <h2>Alojamientos disponibles</h2>
             
-            <!-- Aquí se cargan las tarjetas de hoteles -->
-            <div class="listings-grid" id="listings-grid">
-                <!-- Las tarjetas se generan con JavaScript -->
+            <div class="grid-listados" id="contenedor-listados">
             </div>
 
-            <!-- PAGINACIÓN -->
-            <div class="pagination" id="pagination">
-                <button id="prev-btn" class="pagination-btn">
+            <div class="contenedor-paginacion" id="contenedor-paginacion">
+                <button id="btn-pagina-anterior" class="btn-control-pagina">
                     <i class="fas fa-chevron-left"></i>
                     Anterior
                 </button>
-                <span class="page-info">
-                    Página <span id="current-page">1</span> de <span id="total-pages">2</span>
+                <span class="info-pagina">
+                    Página <span id="contador-actual">1</span> de <span id="contador-total">2</span>
                 </span>
-                <button id="next-btn" class="pagination-btn">
+                <button id="btn-pagina-siguiente" class="btn-control-pagina">
                     Siguiente
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
         </section>
 
-        <!-- DESTINOS POPULARES -->
-        <section class="destinations-section" id="destinos">
+        <section class="seccion-destinos" id="seccion-destinos-populares">
             <h2>Destinos populares en Bolivia</h2>
-            <div class="destinations-grid">
-                <div class="destination-card">
+            <div class="grid-destinos">
+                <div class="tarjeta-destino">
                     <img src="https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=400&h=300&fit=crop" alt="La Paz">
-                    <div class="destination-info">
+                    <div class="info-destino">
                         <h3>La Paz</h3>
                         <p>La ciudad maravilla</p>
                     </div>
                 </div>
-                <div class="destination-card">
+                <div class="tarjeta-destino">
                     <img src="https://images.unsplash.com/photo-1580619305218-8423a7ef79b4?w=400&h=300&fit=crop" alt="Uyuni">
-                    <div class="destination-info">
+                    <div class="info-destino">
                         <h3>Salar de Uyuni</h3>
                         <p>El desierto de sal más grande</p>
                     </div>
                 </div>
-                <div class="destination-card">
+                <div class="tarjeta-destino">
                     <img src="https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=400&h=300&fit=crop" alt="Santa Cruz">
-                    <div class="destination-info">
+                    <div class="info-destino">
                         <h3>Santa Cruz</h3>
                         <p>La ciudad tropical</p>
                     </div>
                 </div>
-                <div class="destination-card">
+                <div class="tarjeta-destino">
                     <img src="https://images.unsplash.com/photo-1464207687429-7505649dae38?w=400&h=300&fit=crop" alt="Sucre">
-                    <div class="destination-info">
+                    <div class="info-destino">
                         <h3>Sucre</h3>
                         <p>La ciudad blanca</p>
                     </div>
@@ -117,14 +102,13 @@
         </section>
     </main>
 
-    <!-- PIE DE PÁGINA -->
-    <footer class="main-footer" id="contacto">
-        <div class="footer-content">
-            <div class="footer-column">
+    <footer class="pie-pagina-principal" id="seccion-contacto">
+        <div class="contenido-pie">
+            <div class="columna-pie">
                 <h4>BoliStay</h4>
                 <p>Tu plataforma para encontrar alojamientos en Bolivia</p>
             </div>
-            <div class="footer-column">
+            <div class="columna-pie">
                 <h4>Enlaces</h4>
                 <ul>
                     <li><a href="#">Sobre nosotros</a></li>
@@ -132,7 +116,7 @@
                     <li><a href="#">Ayuda</a></li>
                 </ul>
             </div>
-            <div class="footer-column">
+            <div class="columna-pie">
                 <h4>Legal</h4>
                 <ul>
                     <li><a href="#">Términos</a></li>
@@ -140,12 +124,11 @@
                 </ul>
             </div>
         </div>
-        <div class="footer-bottom">
+        <div class="pie-inferior">
             <p>&copy; 2024 BoliStay - Proyecto Educativo</p>
         </div>
     </footer>
 
-    <!-- Archivo JavaScript -->
     <script src="index.js"></script>
 </body>
 </html>

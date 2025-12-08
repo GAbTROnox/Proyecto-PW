@@ -1,18 +1,22 @@
-const hoteles = [
+const listadoAlojamientos = [
     {
         id: 1,
         nombre: "Hotel Casa Grande",
         ubicacion: "La Paz",
         precio: 120,
         calificacion: 4.9,
-        imagen: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=500&h=350&fit=crop",
         badge: "Popular",
+        imagen: "Imagenes/hotel-casa-grande.webp",
         descripcion: "Acogedor apartamento ubicado en el corazón de Sopocachi. Perfecto para quienes buscan comodidad y una excelente ubicación. El espacio cuenta con todas las comodidades necesarias para una estancia inolvidable.",
         huespedes: 4,
         habitaciones: 2,
         camas: 2,
         banos: 1,
-        anfitrion: "María Rodríguez"
+        anfitrion: "María Rodríguez",
+        reseñas: [
+            { nombre: "Ana L.", fecha: "Mayo 2024", texto: "Excelente ubicación y la atención de María fue inmejorable.", calificacion: 5 },
+            { nombre: "Carlos G.", fecha: "Abril 2024", texto: "El lugar es tal cual las fotos, muy limpio y cómodo.", calificacion: 4 }
+        ]
     },
     {
         id: 2,
@@ -20,14 +24,55 @@ const hoteles = [
         ubicacion: "Uyuni",
         precio: 95,
         calificacion: 5.0,
-        imagen: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500&h=350&fit=crop",
-        badge: "Nuevo",
+        imagen: "Imagenes/hotel-de-sal.jpeg",
+        badge: null,
         descripcion: "Hotel único construido completamente de sal, ubicado cerca del majestuoso Salar de Uyuni. Una experiencia inolvidable rodeado del paisaje más impresionante de Bolivia.",
-        huespedes: 3,
+        huespedes: 2,
         habitaciones: 1,
-        camas: 2,
+        camas: 1,
         banos: 1,
-        anfitrion: "Carlos Mamani"
+        anfitrion: "Agencia Turística",
+        reseñas: [
+            { nombre: "Pedro M.", fecha: "Junio 2024", texto: "Una experiencia mágica, el hotel es increíble.", calificacion: 5 },
+            { nombre: "Laura V.", fecha: "Mayo 2024", texto: "Caro, pero vale totalmente la pena por la vista.", calificacion: 5 }
+        ]
+    },
+    {
+        id: 13,
+        nombre: "Hotel Regina Resort",
+        ubicacion: "Cochabamba",
+        precio: 98,
+        calificacion: 4.7,
+        imagen: "Imagenes/hotel-regina.jpg",
+        badge: null,
+        descripcion: "Un resort completo con piscinas y áreas verdes. Ideal para familias y relajarse en el clima de Cochabamba.",
+        huespedes: 5,
+        habitaciones: 3,
+        camas: 3,
+        banos: 2,
+        anfitrion: "La familia Pérez",
+        reseñas: [
+            { nombre: "Ricardo R.", fecha: "Abril 2024", texto: "Perfecto para niños, la pasamos muy bien.", calificacion: 4 },
+            { nombre: "Sofia C.", fecha: "Marzo 2024", texto: "Servicio de restaurante podría mejorar, pero las instalaciones son buenas.", calificacion: 4 }
+        ]
+    },
+    {
+        id: 14,
+        nombre: "Gran Hotel Cochabamba",
+        ubicacion: "Cochabamba",
+        precio: 115,
+        calificacion: 4.8,
+        imagen: "Imagenes/gran-hotel.jpg",
+        badge: "Popular"
+    },
+    {
+        id: 15,
+        nombre: "Hotel Diplomat",
+        ubicacion: "Cochabamba",
+        precio: 85,
+        calificacion: 4.6,
+        imagen: "Imagenes/hotel-diplomat.jpg",
+        badge: null
     },
     {
         id: 3,
@@ -35,14 +80,8 @@ const hoteles = [
         ubicacion: "Copacabana",
         precio: 75,
         calificacion: 4.8,
-        imagen: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&h=350&fit=crop",
-        badge: null,
-        descripcion: "Hermoso hotel con vistas al Lago Titicaca. Disfruta de la tranquilidad y belleza del lago más alto del mundo. Perfecto para relajarse y conectar con la naturaleza.",
-        huespedes: 2,
-        habitaciones: 1,
-        camas: 1,
-        banos: 1,
-        anfitrion: "Ana Quispe"
+        imagen: "Imagenes/hotel-rosario-lago.jpg",
+        badge: null
     },
     {
         id: 4,
@@ -50,14 +89,8 @@ const hoteles = [
         ubicacion: "Sucre",
         precio: 85,
         calificacion: 4.9,
-        imagen: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=500&h=350&fit=crop",
-        badge: null,
-        descripcion: "Hotel colonial en el corazón de Sucre, la ciudad blanca de Bolivia. Arquitectura histórica con todas las comodidades modernas. Cerca de los principales atractivos turísticos.",
-        huespedes: 4,
-        habitaciones: 2,
-        camas: 3,
-        banos: 2,
-        anfitrion: "Pedro Gutiérrez"
+        imagen: "Imagenes/hotel-santa-maria.webp",
+        badge: null
     },
     {
         id: 5,
@@ -65,14 +98,8 @@ const hoteles = [
         ubicacion: "Santa Cruz",
         precio: 145,
         calificacion: 4.9,
-        imagen: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=500&h=350&fit=crop",
-        badge: "Premium",
-        descripcion: "Resort de lujo en Santa Cruz. Disfruta de piscina, spa, restaurantes gourmet y todas las comodidades de un hotel 5 estrellas. Ideal para una estancia premium.",
-        huespedes: 6,
-        habitaciones: 3,
-        camas: 4,
-        banos: 3,
-        anfitrion: "Hotel Los Tajibos"
+        imagen: "Imagenes/los-tajibos.jpg",
+        badge: "Premium"
     },
     {
         id: 6,
@@ -80,14 +107,8 @@ const hoteles = [
         ubicacion: "Rurrenabaque",
         precio: 110,
         calificacion: 5.0,
-        imagen: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=500&h=350&fit=crop",
-        badge: "Eco",
-        descripcion: "Ecolodge en medio de la selva amazónica. Una experiencia única de turismo sostenible. Incluye tours guiados por la naturaleza y contacto con comunidades locales.",
-        huespedes: 2,
-        habitaciones: 1,
-        camas: 2,
-        banos: 1,
-        anfitrion: "Comunidad Chalalan"
+        imagen: "Imagenes/chalalan-ecoledge.webp",
+        badge: "Eco"
     },
     {
         id: 7,
@@ -95,14 +116,8 @@ const hoteles = [
         ubicacion: "Potosí",
         precio: 65,
         calificacion: 4.7,
-        imagen: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=500&h=350&fit=crop",
-        badge: null,
-        descripcion: "Hotel acogedor en Potosí con vistas al Cerro Rico. Habitaciones cálidas con calefacción. Perfecto para explorar la ciudad minera más alta del mundo.",
-        huespedes: 2,
-        habitaciones: 1,
-        camas: 1,
-        banos: 1,
-        anfitrion: "Luis Choque"
+        imagen: "Imagenes/hotel-colonial.webp",
+        badge: null
     },
     {
         id: 8,
@@ -110,14 +125,8 @@ const hoteles = [
         ubicacion: "Tarija",
         precio: 90,
         calificacion: 4.9,
-        imagen: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=500&h=350&fit=crop",
-        badge: null,
-        descripcion: "Hotel rodeado de viñedos en el valle tarijeño. Incluye tours de vino y degustaciones. Disfruta del clima cálido y la hospitalidad tarijeña.",
-        huespedes: 4,
-        habitaciones: 2,
-        camas: 2,
-        banos: 2,
-        anfitrion: "Familia Parrales"
+        imagen: "Imagenes/hotel-los-parrales.webp",
+        badge: null
     },
     {
         id: 9,
@@ -125,14 +134,8 @@ const hoteles = [
         ubicacion: "La Paz",
         precio: 70,
         calificacion: 4.6,
-        imagen: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=500&h=350&fit=crop",
-        badge: null,
-        descripcion: "Hotel céntrico en La Paz, cerca de los principales atractivos turísticos. Habitaciones confortables con desayuno incluido. Excelente relación calidad-precio.",
-        huespedes: 2,
-        habitaciones: 1,
-        camas: 1,
-        banos: 1,
-        anfitrion: "Hotel Gloria"
+        imagen: "Imagenes/hotel-gloria.jpg",
+        badge: null
     },
     {
         id: 10,
@@ -141,13 +144,7 @@ const hoteles = [
         precio: 95,
         calificacion: 4.8,
         imagen: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=500&h=350&fit=crop",
-        badge: null,
-        descripcion: "Hotel boutique en Sopocachi con restaurante gourmet. Diseño moderno y elegante. Ideal para viajeros que buscan estilo y comodidad.",
-        huespedes: 3,
-        habitaciones: 1,
-        camas: 2,
-        banos: 1,
-        anfitrion: "Hotel Mitru"
+        badge: null
     },
     {
         id: 11,
@@ -156,13 +153,7 @@ const hoteles = [
         precio: 125,
         calificacion: 4.9,
         imagen: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=500&h=350&fit=crop",
-        badge: "Popular",
-        descripcion: "Suites ejecutivas en Santa Cruz con todas las comodidades para viajeros de negocios. Gimnasio, business center y excelente ubicación en la zona del Equipetrol.",
-        huespedes: 4,
-        habitaciones: 2,
-        camas: 2,
-        banos: 2,
-        anfitrion: "Camino Real"
+        badge: "Popular"
     },
     {
         id: 12,
@@ -171,218 +162,225 @@ const hoteles = [
         precio: 78,
         calificacion: 4.8,
         imagen: "https://images.unsplash.com/photo-1455587734955-081b22074882?w=500&h=350&fit=crop",
-        badge: null,
-        descripcion: "Casona colonial restaurada en Sucre. Jardines hermosos y arquitectura tradicional. Una joya escondida en la capital constitucional de Bolivia.",
-        huespedes: 3,
-        habitaciones: 2,
-        camas: 2,
-        banos: 1,
-        anfitrion: "Rosa Flores"
+        badge: null
     }
 ];
-
-// ========================================
-// OBTENER ID DEL HOTEL DE LA URL
-// ========================================
-function obtenerIdDeURL() {
-    // Leer los parámetros de la URL
-    const parametros = new URLSearchParams(window.location.search);
-    // Obtener el ID (si no existe, usar 1 por defecto)
-    const id = parseInt(parametros.get('id')) || 1;
-    return id;
-}
-
-// ========================================
-// BUSCAR HOTEL POR ID
-// ========================================
-function buscarHotelPorId(id) {
-    // Buscar el hotel en el array
-    const hotel = hoteles.find(function(h) {
-        return h.id === id;
-    });
-    
-    // Si no se encuentra, usar el primer hotel
-    return hotel || hoteles[0];
-}
-
-// ========================================
-// CARGAR INFORMACIÓN DEL HOTEL
-// ========================================
-function cargarInformacionHotel() {
-    // Obtener el ID de la URL
-    const idHotel = obtenerIdDeURL();
-    
-    // Buscar el hotel
-    const hotel = buscarHotelPorId(idHotel);
-    
-    // Actualizar el título de la página
-    document.title = hotel.nombre + " - Detalle";
-    
-    // Actualizar el título principal
-    document.querySelector('.hotel-header h1').textContent = 
-        "Hermoso alojamiento en " + hotel.ubicacion;
-    
-    // Actualizar calificación y ubicación
-    document.querySelector('.header-info .rating').innerHTML = 
-        `<i class="fas fa-star"></i> ${hotel.calificacion} (128 reseñas)`;
-    
-    document.querySelector('.header-info .location').innerHTML = 
-        `<i class="fas fa-map-marker-alt"></i> ${hotel.ubicacion}, Bolivia`;
-    
-    // Actualizar información del anfitrión
-    document.querySelector('.host-info h2').textContent = 
-        "Anfitrión: " + hotel.anfitrion;
-    
-    document.querySelector('.host-info p').textContent = 
-        `${hotel.huespedes} huéspedes · ${hotel.habitaciones} habitaciones · ${hotel.camas} camas · ${hotel.banos} baño${hotel.banos > 1 ? 's' : ''}`;
-    
-    // Actualizar descripción
-    document.querySelector('.description p').textContent = hotel.descripcion;
-    
-    // Actualizar imagen principal
-    document.querySelector('.main-photo img').src = hotel.imagen;
-    
-    // Actualizar precio en la tarjeta de reserva
-    document.querySelector('.price').innerHTML = 
-        `$${hotel.precio}Bs <small>/ noche</small>`;
-    
-    // Actualizar precio en el desglose
-    actualizarPrecioInicial(hotel.precio);
-    
-    // Guardar el precio del hotel para cálculos posteriores
-    window.precioHotel = hotel.precio;
-}
-
-// ========================================
-// ACTUALIZAR PRECIO INICIAL
-// ========================================
-function actualizarPrecioInicial(precio) {
-    const tarifaLimpieza = 100;
-    const tarifaServicio = 50;
-    const noches = 5;
-    const subtotal = precio * noches;
-    const total = subtotal + tarifaLimpieza + tarifaServicio;
-    
-    document.querySelector('.price-breakdown').innerHTML = `
-        <div class="price-row">
-            <span>$${precio}Bs x ${noches} Noches</span>
-            <span>${subtotal}Bs</span>
-        </div>
-        <div class="price-row">
-            <span>Tarifa de limpieza</span>
-            <span>${tarifaLimpieza}Bs</span>
-        </div>
-        <div class="price-row">
-            <span>Tarifa de servicio</span>
-            <span>${tarifaServicio}Bs</span>
-        </div>
-        <hr>
-        <div class="price-row total">
-            <strong>Total</strong>
-            <strong>${total}Bs</strong>
-        </div>
-    `;
-}
 
 // ========================================
 // CUANDO LA PÁGINA CARGA
 // ========================================
 document.addEventListener('DOMContentLoaded', function() {
-    cargarInformacionHotel();  // CARGAR INFO DEL HOTEL
-    configurarFormulario();
-    calcularPrecioTotal();
+    console.log('✅ logicaDetalle cargada correctamente'); 
+    
+    // 1. Obtener el ID del alojamiento de la URL
+    const params = new URLSearchParams(window.location.search);
+    const alojamientoId = parseInt(params.get('id')); 
+    
+    // 2. Buscar el alojamiento en la lista
+    const alojamientoSeleccionado = listadoAlojamientos.find(function(h) {
+        return h.id === alojamientoId;
+    });
+    
+    // 3. Mostrar la información o mensaje de error
+    if (alojamientoSeleccionado) {
+        mostrarDetalleAlojamiento(alojamientoSeleccionado);
+        configurarFormularioReserva(alojamientoSeleccionado);
+    } else {
+        mostrarMensajeError();
+    }
 });
 
 // ========================================
-// CONFIGURAR FORMULARIO DE RESERVA
+// FUNCIÓN: MOSTRAR DETALLE DEL ALOJAMIENTO
 // ========================================
-function configurarFormulario() {
-    const formulario = document.querySelector('.booking-form');
+function mostrarDetalleAlojamiento(alojamiento) {
+    document.title = `${alojamiento.nombre} - Detalle`;
     
-    formulario.addEventListener('submit', function(evento) {
-        evento.preventDefault();
-        
-        const llegada = document.getElementById('checkin').value;
-        const salida = document.getElementById('checkout').value;
-        const huespedes = document.getElementById('guests').value;
-        
-        if (!llegada || !salida) {
-            alert('Por favor selecciona las fechas de llegada y salida');
-            return;
-        }
-        
-        if (new Date(salida) <= new Date(llegada)) {
-            alert('La fecha de salida debe ser después de la fecha de llegada');
-            return;
-        }
-        
-        alert('¡Reserva solicitada!\n\nLlegada: ' + llegada + '\nSalida: ' + salida + '\nHuéspedes: ' + huespedes);
-    });
-    
-    document.getElementById('checkin').addEventListener('change', calcularPrecioTotal);
-    document.getElementById('checkout').addEventListener('change', calcularPrecioTotal);
-}
+    const nombreAlojamiento = document.getElementById('alojamiento-nombre');
+    if (nombreAlojamiento) nombreAlojamiento.textContent = alojamiento.nombre;
 
-// ========================================
-// CALCULAR PRECIO TOTAL
-// ========================================
-function calcularPrecioTotal() {
-    const llegada = document.getElementById('checkin').value;
-    const salida = document.getElementById('checkout').value;
+    const ubicacionAlojamiento = document.getElementById('alojamiento-ubicacion');
+    if (ubicacionAlojamiento) ubicacionAlojamiento.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${alojamiento.ubicacion}`;
+
+    const calificacionAlojamiento = document.getElementById('alojamiento-calificacion');
+    if (calificacionAlojamiento) calificacionAlojamiento.textContent = alojamiento.calificacion;
     
-    if (llegada && salida) {
-        const fechaLlegada = new Date(llegada);
-        const fechaSalida = new Date(salida);
-        const diferencia = fechaSalida - fechaLlegada;
-        const noches = Math.ceil(diferencia / (1000 * 60 * 60 * 24));
-        
-        if (noches > 0) {
-            const precioPorNoche = window.precioHotel || 120;
-            const tarifaLimpieza = 100;
-            const tarifaServicio = 50;
-            
-            const subtotal = precioPorNoche * noches;
-            const total = subtotal + tarifaLimpieza + tarifaServicio;
-            
-            actualizarPrecioHTML(precioPorNoche, noches, subtotal, tarifaLimpieza, tarifaServicio, total);
+    const calificacionResumen = document.getElementById('alojamiento-calificacion-resumen');
+    if (calificacionResumen) calificacionResumen.textContent = alojamiento.calificacion;
+
+    const puntuacionReserva = document.getElementById('puntuacion-reserva');
+    if (puntuacionReserva) puntuacionReserva.textContent = alojamiento.calificacion;
+    const imagenPrincipal = document.querySelector('.foto-principal img');
+    if (imagenPrincipal) {
+        imagenPrincipal.src = alojamiento.imagen;
+        imagenPrincipal.alt = alojamiento.nombre;
+    }
+    
+    // 3. Descripción
+    const descripcionAlojamiento = document.getElementById('alojamiento-descripcion');
+    if (descripcionAlojamiento) descripcionAlojamiento.textContent = alojamiento.descripcion || "Descripción no disponible. Este alojamiento ofrece un excelente servicio y ubicación.";
+    const nombreAnfitrion = document.getElementById('anfitrion-nombre');
+    if (nombreAnfitrion) nombreAnfitrion.textContent = `Anfitrión: ${alojamiento.anfitrion || 'N/A'}`;
+    const infoHuespedes = document.getElementById('huespedes-info');
+    if (infoHuespedes) infoHuespedes.textContent = `${alojamiento.huespedes || 0}`;
+    const infoHabitaciones = document.getElementById('habitaciones-info');
+    if (infoHabitaciones) infoHabitaciones.textContent = `${alojamiento.habitaciones || 0}`;
+    const infoCamas = document.getElementById('camas-info');
+    if (infoCamas) infoCamas.textContent = `${alojamiento.camas || 0}`;
+    const infoBanos = document.getElementById('banos-info');
+    if (infoBanos) infoBanos.textContent = `${alojamiento.banos || 0}`;
+    const precioNocheElement = document.getElementById('precio-noche');
+    if (precioNocheElement) precioNocheElement.textContent = `$${alojamiento.precio}Bs`;
+    const selectHuespedes = document.getElementById('select-huespedes');
+    const maxHuespedes = alojamiento.huespedes || 4; 
+    if (selectHuespedes) {
+        selectHuespedes.innerHTML = '';
+        for (let i = 1; i <= maxHuespedes; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = `${i} huésped${i > 1 ? 'es' : ''}`;
+            if (i === 2 && maxHuespedes >= 2) option.selected = true; // Seleccionar 2 si es posible
+            selectHuespedes.appendChild(option);
         }
     }
 }
 
+
 // ========================================
-// ACTUALIZAR HTML CON PRECIOS
+// FUNCIÓN: MOSTRAR MENSAJE DE ERROR
 // ========================================
-function actualizarPrecioHTML(precioPorNoche, noches, subtotal, limpieza, servicio, total) {
-    const desglose = document.querySelector('.price-breakdown');
+function mostrarMensajeError() {
+    document.title = "Error - Alojamiento no encontrado";
+    const contenidoPrincipal = document.querySelector('.contenido-principal'); 
+    if (contenidoPrincipal) {
+        // Ocultar la tarjeta de reserva para el error
+        const tarjetaReserva = document.querySelector('.tarjeta-reserva');
+        if (tarjetaReserva) {
+            tarjetaReserva.style.display = 'none';
+        }
+        
+        // Mostrar mensaje de error en el contenedor principal
+        contenidoPrincipal.innerHTML = `
+            <div class="error-container" style="grid-column: 1 / -1; text-align: center; padding: 50px;">
+                <i class="fas fa-exclamation-triangle" style="font-size: 3em; color: #ff385c; margin-bottom: 20px;"></i>
+                <h2>Alojamiento no encontrado</h2>
+                <p>El identificador de alojamiento no es válido o no existe.</p>
+                <a href="index.html" class="btn-volver" style="position: static; margin-top: 20px; display: inline-block;">Volver al inicio</a>
+            </div>
+        `;
+    }
+}
+
+// ========================================
+// FUNCIÓN: CONFIGURAR FORMULARIO DE RESERVA
+// ========================================
+function configurarFormularioReserva(alojamiento) {
+    const formularioReserva = document.getElementById('formulario-reserva'); 
+    const inputLlegada = document.getElementById('fecha-llegada');
+    const inputSalida = document.getElementById('fecha-salida');
+    const selectHuespedes = document.getElementById('select-huespedes'); 
+    const btnReservar = document.querySelector('.btn-reservar');
     
-    desglose.innerHTML = `
-        <div class="price-row">
-            <span>$${precioPorNoche}Bs x ${noches} ${noches === 1 ? 'Noche' : 'Noches'}</span>
+    if (!formularioReserva || !inputLlegada || !inputSalida || !selectHuespedes) return;
+
+    // Función para calcular noches
+    function calcularNumeroNoches() {
+        const dateIn = new Date(inputLlegada.value);
+        const dateOut = new Date(inputSalida.value);
+        
+        if (dateIn && dateOut && dateOut > dateIn) {
+            const diffTime = Math.abs(dateOut - dateIn);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+            return diffDays;
+        }
+        return 0; 
+    }
+    function actualizarDatosReserva() {
+        const noches = calcularNumeroNoches();
+        const huespedes = parseInt(selectHuespedes.value) || 1;
+        
+        if (noches > 0) {
+            calcularYActualizarPrecio(alojamiento.precio, noches, huespedes);
+            btnReservar.disabled = false;
+        } else {
+            calcularYActualizarPrecio(alojamiento.precio, 0, huespedes);
+            btnReservar.disabled = true;
+        }
+    
+    inputLlegada.addEventListener('change', actualizarDatosReserva);
+    inputSalida.addEventListener('change', actualizarDatosReserva);
+    selectHuespedes.addEventListener('change', actualizarDatosReserva);
+    actualizarDatosReserva();
+    formularioReserva.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const noches = calcularNumeroNoches();
+        const huespedes = selectHuespedes.value;
+
+        if (noches <= 0) {
+             alert('Por favor, selecciona fechas de llegada y salida válidas (la salida debe ser posterior a la llegada).');
+             return;
+        }
+        
+        const totalElement = document.querySelector('.desglose-precio .fila-precio.total strong:last-child');
+        const totalReserva = totalElement ? totalElement.textContent : 'Calculando...';
+
+        alert(`🎉 ¡Reserva para ${alojamiento.nombre} confirmada!\n\nEstancia: ${noches} noches\nHuéspedes: ${huespedes}\nTotal: ${totalReserva}`);
+    });
+}
+
+// ========================================
+// FUNCIÓN: CALCULAR Y ACTUALIZAR PRECIO
+// ========================================
+function calcularYActualizarPrecio(precioPorNoche, noches, huespedes) {
+    noches = parseInt(noches) || 0;
+    huespedes = parseInt(huespedes) || 1; 
+
+    if (precioPorNoche) {
+        const tarifaLimpieza = 100; 
+        const tarifaServicio = 50;  
+        const subtotal = precioPorNoche * noches * huespedes; 
+        const total = subtotal + tarifaLimpieza + tarifaServicio;
+        actualizarDesglosePrecioHTML(precioPorNoche, noches, huespedes, subtotal, tarifaLimpieza, tarifaServicio, total);
+    }
+}
+
+// ========================================
+// FUNCIÓN: ACTUALIZAR DESGLOSE DE PRECIO HTML
+// ========================================
+function actualizarDesglosePrecioHTML(precioPorNoche, noches, huespedes, subtotal, limpieza, servicio, total) {
+    const desglosePrecio = document.querySelector('.desglose-precio');
+    if (noches === 0) {
+        desglosePrecio.innerHTML = `
+            <p style="text-align: center; color: #717171; font-weight: 600;">
+                Ingresa fechas para calcular el total.
+            </p>
+            <div class="fila-precio total" style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 15px;">
+                <strong>Total Estimado</strong>
+                <strong>--</strong>
+            </div>
+        `;
+        return;
+    }
+
+    desglosePrecio.innerHTML = `
+        <div class="fila-precio">
+            <span>${precioPorNoche}Bs x ${noches} ${noches === 1 ? 'Noche' : 'Noches'} x ${huespedes} ${huespedes === 1 ? 'Huésped' : 'Huéspedes'}</span>
             <span>${subtotal}Bs</span>
         </div>
-        <div class="price-row">
+        <div class="fila-precio">
             <span>Tarifa de limpieza</span>
             <span>${limpieza}Bs</span>
         </div>
-        <div class="price-row">
+        <div class="fila-precio">
             <span>Tarifa de servicio</span>
             <span>${servicio}Bs</span>
         </div>
         <hr>
-        <div class="price-row total">
+        <div class="fila-precio total">
             <strong>Total</strong>
             <strong>${total}Bs</strong>
         </div>
     `;
 }
-
-// ========================================
-// BOTÓN DE MOSTRAR MÁS RESEÑAS
-// ========================================
-const btnMostrarMas = document.querySelector('.btn-more');
-
-if (btnMostrarMas) {
-    btnMostrarMas.addEventListener('click', function() {
-        alert('En una aplicación real, aquí se mostrarían todas las reseñas');
-    });
 }

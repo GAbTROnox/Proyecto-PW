@@ -1,12 +1,12 @@
-const hoteles = [
+const listadoAlojamientos = [
     {
         id: 1,
         nombre: "Hotel Casa Grande",
         ubicacion: "La Paz",
         precio: 120,
         calificacion: 4.9,
-        imagen: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=500&h=350&fit=crop",
-        badge: "Popular"
+        badge: "Popular",
+        imagen: "Imagenes/hotel-casa-grande.webp"
     },
     {
         id: 2,
@@ -14,8 +14,35 @@ const hoteles = [
         ubicacion: "Uyuni",
         precio: 95,
         calificacion: 5.0,
-        imagen: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500&h=350&fit=crop",
-        badge: "Nuevo"
+        imagen: "Imagenes/hotel-de-sal.jpeg",
+        badge: null
+    },
+    {
+        id: 13,
+        nombre: "Hotel Regina Resort",
+        ubicacion: "Cochabamba",
+        precio: 98,
+        calificacion: 4.7,
+        imagen: "Imagenes/hotel-regina.jpg",
+        badge: null
+    },
+    {
+        id: 14,
+        nombre: "Gran Hotel Cochabamba",
+        ubicacion: "Cochabamba",
+        precio: 115,
+        calificacion: 4.8,
+        imagen: "Imagenes/gran-hotel.jpg",
+        badge: "Popular"
+    },
+    {
+        id: 15,
+        nombre: "Hotel Diplomat",
+        ubicacion: "Cochabamba",
+        precio: 85,
+        calificacion: 4.6,
+        imagen: "Imagenes/hotel-diplomat.jpg",
+        badge: null
     },
     {
         id: 3,
@@ -23,7 +50,7 @@ const hoteles = [
         ubicacion: "Copacabana",
         precio: 75,
         calificacion: 4.8,
-        imagen: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&h=350&fit=crop",
+        imagen: "Imagenes/hotel-rosario-lago.jpg",
         badge: null
     },
     {
@@ -32,7 +59,7 @@ const hoteles = [
         ubicacion: "Sucre",
         precio: 85,
         calificacion: 4.9,
-        imagen: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=500&h=350&fit=crop",
+        imagen: "Imagenes/hotel-santa-maria.webp",
         badge: null
     },
     {
@@ -41,7 +68,7 @@ const hoteles = [
         ubicacion: "Santa Cruz",
         precio: 145,
         calificacion: 4.9,
-        imagen: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=500&h=350&fit=crop",
+        imagen: "Imagenes/los-tajibos.jpg",
         badge: "Premium"
     },
     {
@@ -50,7 +77,7 @@ const hoteles = [
         ubicacion: "Rurrenabaque",
         precio: 110,
         calificacion: 5.0,
-        imagen: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=500&h=350&fit=crop",
+        imagen: "Imagenes/chalalan-ecoledge.webp",
         badge: "Eco"
     },
     {
@@ -59,7 +86,7 @@ const hoteles = [
         ubicacion: "Potosí",
         precio: 65,
         calificacion: 4.7,
-        imagen: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=500&h=350&fit=crop",
+        imagen: "Imagenes/hotel-colonial.webp",
         badge: null
     },
     {
@@ -68,7 +95,7 @@ const hoteles = [
         ubicacion: "Tarija",
         precio: 90,
         calificacion: 4.9,
-        imagen: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=500&h=350&fit=crop",
+        imagen: "Imagenes/hotel-los-parrales.webp",
         badge: null
     },
     {
@@ -77,7 +104,7 @@ const hoteles = [
         ubicacion: "La Paz",
         precio: 70,
         calificacion: 4.6,
-        imagen: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=500&h=350&fit=crop",
+        imagen: "Imagenes/hotel-gloria.jpg",
         badge: null
     },
     {
@@ -112,135 +139,115 @@ const hoteles = [
 // ========================================
 // VARIABLES GLOBALES
 // ========================================
-let paginaActual = 1;           // Página que estamos viendo
-const hotelesPorPagina = 6;     // Cuántos hoteles mostrar por página
-const totalPaginas = 2;         // Total de páginas (12 hoteles / 6 = 2 páginas)
+let numPaginaActual = 1;
+const maxAlojamientosPorPagina = 6;
+const totalDePaginas = 2;
 
 // ========================================
 // CUANDO LA PÁGINA CARGA
 // ========================================
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('✅ index.js cargado correctamente'); // Para debug
-    mostrarHoteles();           // Mostrar los primeros 6 hoteles
-    configurarPaginacion();     // Configurar los botones de paginación
-    configurarBusqueda();       // Configurar el buscador
+    console.log('✅ logicaPrincipal cargada correctamente');
+    desplegarListado(); 
+    activarControlesPagina();  
+    escucharBuscador();   
+    activarTarjetasDestino();
 });
 
 // ========================================
-// FUNCIÓN: MOSTRAR HOTELES
+// FUNCIÓN: DESPLEGAR LISTADO
 // ========================================
-function mostrarHoteles() {
-    console.log('📄 Mostrando página:', paginaActual); // Para debug
+function desplegarListado() {
+    console.log('📄 Mostrando página:', numPaginaActual);
+    const contenedor = document.getElementById('contenedor-listados');
+    contenedor.innerHTML = '';
+    const inicio = (numPaginaActual - 1) * maxAlojamientosPorPagina;  
+    const fin = inicio + maxAlojamientosPorPagina;           
     
-    // Obtener el contenedor donde van los hoteles
-    const contenedor = document.getElementById('listings-grid');
-    contenedor.innerHTML = ''; // Limpiar el contenedor
+
+    const alojamientosAMostrar = listadoAlojamientos.slice(inicio, fin);
+    console.log('🏨 Mostrando alojamientos:', alojamientosAMostrar.length);
     
-    // Calcular qué hoteles mostrar
-    const inicio = (paginaActual - 1) * hotelesPorPagina;  // Si página 1: 0, Si página 2: 6
-    const fin = inicio + hotelesPorPagina;                  // Si página 1: 6, Si página 2: 12
-    
-    // Obtener solo los hoteles de esta página
-    const hotelesAMostrar = hoteles.slice(inicio, fin);
-    console.log('🏨 Mostrando hoteles:', hotelesAMostrar.length); // Para debug
-    
-    // Crear una tarjeta para cada hotel
-    hotelesAMostrar.forEach(function(hotel) {
-        const tarjeta = crearTarjetaHotel(hotel);
+    alojamientosAMostrar.forEach(function(alojamiento) {
+        const tarjeta = generarTarjetaAlojamiento(alojamiento);
         contenedor.appendChild(tarjeta);
     });
-    
-    // Actualizar la información de la página
-    actualizarInfoPagina();
+    actualizarContadoresPagina();
 }
 
 // ========================================
-// FUNCIÓN: CREAR TARJETA DE HOTEL
+// FUNCIÓN: GENERAR TARJETA DE ALOJAMIENTO
 // ========================================
-function crearTarjetaHotel(hotel) {
-    // Crear el elemento article
+function generarTarjetaAlojamiento(alojamiento) {
     const tarjeta = document.createElement('article');
-    tarjeta.className = 'listing-card';
-    
-    // Crear el HTML interno de la tarjeta
+    tarjeta.className = 'tarjeta-alojamiento';
     tarjeta.innerHTML = `
-        <div class="image-container">
-            <img src="${hotel.imagen}" alt="${hotel.nombre}" class="listing-image">
-            ${hotel.badge ? `<span class="badge">${hotel.badge}</span>` : ''}
+        <div class="contenedor-imagen">
+            <img src="${alojamiento.imagen}" alt="${alojamiento.nombre}" class="imagen-alojamiento">
+            ${alojamiento.badge ? `<span class="etiqueta">${alojamiento.badge}</span>` : ''}
         </div>
-        <div class="info">
-            <h3>${hotel.nombre}</h3>
-            <p class="location">
+        <div class="datos-tarjeta">
+            <h3>${alojamiento.nombre}</h3>
+            <p class="ubicacion-detalle">
                 <i class="fas fa-map-marker-alt"></i>
-                ${hotel.ubicacion}
+                ${alojamiento.ubicacion}
             </p>
-            <div class="rating">
+            <div class="puntuacion-estrellas">
                 <i class="fas fa-star"></i>
-                <span>${hotel.calificacion}</span>
+                <span>${alojamiento.calificacion}</span>
             </div>
-            <p class="price">
-                $${hotel.precio} <span>/ noche</span>
+            <p class="costo-noche">
+                ${alojamiento.precio}Bs <span>/ noche</span>
             </p>
         </div>
     `;
     
-    // ⭐ IMPORTANTE: Hacer que TODOS los hoteles sean clickeables
     tarjeta.addEventListener('click', function() {
-        console.log('🖱️ Click en hotel ID:', hotel.id, '-', hotel.nombre); // Para debug
-        window.location.href = 'detalle.html?id=' + hotel.id;
+        console.log('🖱️ Click en alojamiento ID:', alojamiento.id, '-', alojamiento.nombre); // Para debug
+        window.location.href = 'detalle.html?id=' + alojamiento.id;
     });
     
     return tarjeta;
 }
 
 // ========================================
-// FUNCIÓN: CONFIGURAR PAGINACIÓN
+// FUNCIÓN: ACTIVAR CONTROLES DE PÁGINA
 // ========================================
-function configurarPaginacion() {
-    // Obtener los botones
-    const btnAnterior = document.getElementById('prev-btn');
-    const btnSiguiente = document.getElementById('next-btn');
+function activarControlesPagina() {
+    const btnAnterior = document.getElementById('btn-pagina-anterior');
+    const btnSiguiente = document.getElementById('btn-pagina-siguiente');
     
-    // Cuando hagan click en "Anterior"
     btnAnterior.addEventListener('click', function() {
-        if (paginaActual > 1) {
-            paginaActual--;
-            mostrarHoteles();
-            window.scrollTo({ top: 0, behavior: 'smooth' }); // Subir arriba suavemente
+        if (numPaginaActual > 1) {
+            numPaginaActual--;
+            desplegarListado();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     });
     
-    // Cuando hagan click en "Siguiente"
     btnSiguiente.addEventListener('click', function() {
-        if (paginaActual < totalPaginas) {
-            paginaActual++;
-            mostrarHoteles();
-            window.scrollTo({ top: 0, behavior: 'smooth' }); // Subir arriba suavemente
+        if (numPaginaActual < totalDePaginas) {
+            numPaginaActual++;
+            desplegarListado();
+            window.scrollTo({ top: 0, behavior: 'smooth' }); 
         }
     });
 }
 
 // ========================================
-// FUNCIÓN: ACTUALIZAR INFO DE PÁGINA
+// FUNCIÓN: ACTUALIZAR CONTADORES DE PÁGINA
 // ========================================
-function actualizarInfoPagina() {
-    // Actualizar el texto que dice "Página 1 de 2"
-    document.getElementById('current-page').textContent = paginaActual;
-    document.getElementById('total-pages').textContent = totalPaginas;
-    
-    // Obtener los botones
-    const btnAnterior = document.getElementById('prev-btn');
-    const btnSiguiente = document.getElementById('next-btn');
-    
-    // Deshabilitar el botón "Anterior" si estamos en la página 1
-    if (paginaActual === 1) {
+function actualizarContadoresPagina() {
+    document.getElementById('contador-actual').textContent = numPaginaActual;
+    document.getElementById('contador-total').textContent = totalDePaginas;
+    const btnAnterior = document.getElementById('btn-pagina-anterior');
+    const btnSiguiente = document.getElementById('btn-pagina-siguiente');
+    if (numPaginaActual === 1) {
         btnAnterior.disabled = true;
     } else {
         btnAnterior.disabled = false;
     }
-    
-    // Deshabilitar el botón "Siguiente" si estamos en la última página
-    if (paginaActual === totalPaginas) {
+    if (numPaginaActual === totalDePaginas) {
         btnSiguiente.disabled = true;
     } else {
         btnSiguiente.disabled = false;
@@ -248,95 +255,111 @@ function actualizarInfoPagina() {
 }
 
 // ========================================
-// FUNCIÓN: CONFIGURAR BÚSQUEDA
+// FUNCIÓN: ESCUCHAR BUSCADOR
 // ========================================
-function configurarBusqueda() {
-    const formulario = document.getElementById('search-form');
+function escucharBuscador() {
+    const formulario = document.getElementById('formulario-busqueda');
     
     formulario.addEventListener('submit', function(evento) {
-        evento.preventDefault(); // Evitar que la página se recargue
-        
-        // Obtener el texto que escribió el usuario
-        const textoBusqueda = document.getElementById('destination').value.toLowerCase();
+        evento.preventDefault();
+        const textoBusqueda = document.getElementById('input-destino').value.toLowerCase();
         
         if (textoBusqueda === '') {
-            // Si no escribió nada, mostrar todos los hoteles
             alert('Por favor escribe un destino');
             return;
         }
         
-        // Buscar hoteles que coincidan
-        const hotelesEncontrados = hoteles.filter(function(hotel) {
-            return hotel.ubicacion.toLowerCase().includes(textoBusqueda) ||
-                   hotel.nombre.toLowerCase().includes(textoBusqueda);
+        const resultadosEncontrados = listadoAlojamientos.filter(function(alojamiento) {
+            return alojamiento.ubicacion.toLowerCase().includes(textoBusqueda) ||
+                   alojamiento.nombre.toLowerCase().includes(textoBusqueda);
         });
         
         // Mostrar resultados
-        if (hotelesEncontrados.length > 0) {
-            mostrarResultadosBusqueda(hotelesEncontrados);
+        if (resultadosEncontrados.length > 0) {
+            desplegarResultadosBusqueda(resultadosEncontrados);
         } else {
-            alert('No se encontraron hoteles en ese destino');
+            alert('No se encontraron alojamientos en ese destino');
         }
     });
 }
 
 // ========================================
-// FUNCIÓN: MOSTRAR RESULTADOS DE BÚSQUEDA
+// FUNCIÓN: DESPLEGAR RESULTADOS DE BÚSQUEDA
 // ========================================
-function mostrarResultadosBusqueda(hotelesEncontrados) {
-    const contenedor = document.getElementById('listings-grid');
-    contenedor.innerHTML = ''; // Limpiar
-    
-    // Mostrar cada hotel encontrado
-    hotelesEncontrados.forEach(function(hotel) {
-        const tarjeta = crearTarjetaHotel(hotel);
+function desplegarResultadosBusqueda(resultadosEncontrados) {
+    const contenedor = document.getElementById('contenedor-listados');
+    contenedor.innerHTML = ''; 
+    resultadosEncontrados.forEach(function(alojamiento) {
+        const tarjeta = generarTarjetaAlojamiento(alojamiento);
         contenedor.appendChild(tarjeta);
     });
-    
-    // Ocultar la paginación cuando hay búsqueda
-    document.getElementById('pagination').style.display = 'none';
-    
-    // Agregar un botón para volver a ver todos
-    const contenedorPaginacion = document.getElementById('pagination');
+    const contenedorPaginacion = document.getElementById('contenedor-paginacion');
+    contenedorPaginacion.style.display = 'none';
     contenedorPaginacion.innerHTML = `
-        <button id="btn-volver-todos" class="pagination-btn">
+        <button id="btn-ver-todo" class="btn-control-pagina">
             <i class="fas fa-arrow-left"></i>
-            Ver todos los hoteles
+            Ver todos los alojamientos
         </button>
     `;
     contenedorPaginacion.style.display = 'flex';
-    
-    // Agregar evento al botón de volver
-    document.getElementById('btn-volver-todos').addEventListener('click', volverATodos);
+    document.getElementById('btn-ver-todo').addEventListener('click', restaurarVistaPrincipal);
 }
 
 // ========================================
-// FUNCIÓN: VOLVER A VER TODOS LOS HOTELES
+// FUNCIÓN: RESTAURAR VISTA PRINCIPAL
 // ========================================
-function volverATodos() {
-    paginaActual = 1;
-    mostrarHoteles();
-    
-    // Restaurar la paginación original
-    document.getElementById('pagination').innerHTML = `
-        <button id="prev-btn" class="pagination-btn">
+function restaurarVistaPrincipal() {
+    numPaginaActual = 1;
+    desplegarListado();
+    const contenedorPaginacion = document.getElementById('contenedor-paginacion');
+    contenedorPaginacion.innerHTML = `
+        <button id="btn-pagina-anterior" class="btn-control-pagina">
             <i class="fas fa-chevron-left"></i>
             Anterior
         </button>
-        <span class="page-info">
-            Página <span id="current-page">1</span> de <span id="total-pages">2</span>
+        <span class="info-pagina">
+            Página <span id="contador-actual">1</span> de <span id="contador-total">2</span>
         </span>
-        <button id="next-btn" class="pagination-btn">
+        <button id="btn-pagina-siguiente" class="btn-control-pagina">
             Siguiente
             <i class="fas fa-chevron-right"></i>
         </button>
     `;
     
-    configurarPaginacion();
+    activarControlesPagina();
 }
 
 // ========================================
-// SMOOTH SCROLL PARA LOS ENLACES
+// FUNCIÓN: ACTIVAR TARJETAS DESTINO
+// ========================================
+function activarTarjetasDestino() {
+    const tarjetas = document.querySelectorAll('.tarjeta-destino');
+    const mapeoCiudades = {
+        'la paz': 'La Paz',
+        'salar de uyuni': 'Uyuni', 
+        'santa cruz': 'Santa Cruz',
+        'sucre': 'Sucre'
+    };
+    
+    tarjetas.forEach(function(tarjeta) {
+        const nombreDestinoHTML = tarjeta.querySelector('h3').textContent.toLowerCase().trim();
+        const ciudad = mapeoCiudades[nombreDestinoHTML];
+        
+        if (ciudad) {
+            tarjeta.style.cursor = 'pointer'; 
+            
+            tarjeta.addEventListener('click', function() {
+                console.log('🖱️ Click en destino:', ciudad);
+                window.location.href = 'destinos.html?ciudad=' + encodeURIComponent(ciudad);
+            });
+        } else {
+             console.error('⚠️ Ciudad no mapeada para el destino:', nombreDestinoHTML);
+        }
+    });
+}
+
+// ========================================
+// SCROLL SUAVE PARA LOS ENLACES
 // ========================================
 document.querySelectorAll('a[href^="#"]').forEach(function(enlace) {
     enlace.addEventListener('click', function(e) {

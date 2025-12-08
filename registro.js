@@ -21,11 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', (event) => {
             // Previene que la página se recargue al enviar el formulario
             event.preventDefault(); 
-            
-            // Simulación de acción
             alert('Formulario de Continuar enviado (simulación exitosa).');
-            
-            // Opcional: Cerrar la modal después de simular el envío
             closeModal();
         });
     }
