@@ -210,27 +210,34 @@ function mostrarDetalleAlojamiento(alojamiento) {
 
     const puntuacionReserva = document.getElementById('puntuacion-reserva');
     if (puntuacionReserva) puntuacionReserva.textContent = alojamiento.calificacion;
+    
     const imagenPrincipal = document.querySelector('.foto-principal img');
     if (imagenPrincipal) {
         imagenPrincipal.src = alojamiento.imagen;
         imagenPrincipal.alt = alojamiento.nombre;
     }
     
-    // 3. Descripción
     const descripcionAlojamiento = document.getElementById('alojamiento-descripcion');
     if (descripcionAlojamiento) descripcionAlojamiento.textContent = alojamiento.descripcion || "Descripción no disponible. Este alojamiento ofrece un excelente servicio y ubicación.";
+    
     const nombreAnfitrion = document.getElementById('anfitrion-nombre');
     if (nombreAnfitrion) nombreAnfitrion.textContent = `Anfitrión: ${alojamiento.anfitrion || 'N/A'}`;
+    
     const infoHuespedes = document.getElementById('huespedes-info');
     if (infoHuespedes) infoHuespedes.textContent = `${alojamiento.huespedes || 0}`;
+    
     const infoHabitaciones = document.getElementById('habitaciones-info');
     if (infoHabitaciones) infoHabitaciones.textContent = `${alojamiento.habitaciones || 0}`;
+    
     const infoCamas = document.getElementById('camas-info');
     if (infoCamas) infoCamas.textContent = `${alojamiento.camas || 0}`;
+    
     const infoBanos = document.getElementById('banos-info');
     if (infoBanos) infoBanos.textContent = `${alojamiento.banos || 0}`;
+    
     const precioNocheElement = document.getElementById('precio-noche');
     if (precioNocheElement) precioNocheElement.textContent = `$${alojamiento.precio}Bs`;
+    
     const selectHuespedes = document.getElementById('select-huespedes');
     const maxHuespedes = alojamiento.huespedes || 4; 
     if (selectHuespedes) {
@@ -239,12 +246,11 @@ function mostrarDetalleAlojamiento(alojamiento) {
             const option = document.createElement('option');
             option.value = i;
             option.textContent = `${i} huésped${i > 1 ? 'es' : ''}`;
-            if (i === 2 && maxHuespedes >= 2) option.selected = true; // Seleccionar 2 si es posible
+            if (i === 2 && maxHuespedes >= 2) option.selected = true;
             selectHuespedes.appendChild(option);
         }
     }
 }
-
 
 // ========================================
 // FUNCIÓN: MOSTRAR MENSAJE DE ERROR
@@ -253,13 +259,11 @@ function mostrarMensajeError() {
     document.title = "Error - Alojamiento no encontrado";
     const contenidoPrincipal = document.querySelector('.contenido-principal'); 
     if (contenidoPrincipal) {
-        // Ocultar la tarjeta de reserva para el error
         const tarjetaReserva = document.querySelector('.tarjeta-reserva');
         if (tarjetaReserva) {
             tarjetaReserva.style.display = 'none';
         }
         
-        // Mostrar mensaje de error en el contenedor principal
         contenidoPrincipal.innerHTML = `
             <div class="error-container" style="grid-column: 1 / -1; text-align: center; padding: 50px;">
                 <i class="fas fa-exclamation-triangle" style="font-size: 3em; color: #ff385c; margin-bottom: 20px;"></i>
@@ -281,9 +285,12 @@ function configurarFormularioReserva(alojamiento) {
     const selectHuespedes = document.getElementById('select-huespedes'); 
     const btnReservar = document.querySelector('.btn-reservar');
     
-    if (!formularioReserva || !inputLlegada || !inputSalida || !selectHuespedes) return;
+    if (!formularioReserva || !inputLlegada || !inputSalida || !selectHuespedes) {
+        console.error('❌ No se encontraron los elementos del formulario');
+        return;
+    }
 
-    // Función para calcular noches
+    console.log('✅ Formulario encontrado, configurando eventos...');
     function calcularNumeroNoches() {
         const dateIn = new Date(inputLlegada.value);
         const dateOut = new Date(inputSalida.value);
@@ -291,35 +298,51 @@ function configurarFormularioReserva(alojamiento) {
         if (dateIn && dateOut && dateOut > dateIn) {
             const diffTime = Math.abs(dateOut - dateIn);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+            console.log('📅 Noches calculadas:', diffDays);
             return diffDays;
         }
         return 0; 
     }
+
     function actualizarDatosReserva() {
         const noches = calcularNumeroNoches();
         const huespedes = parseInt(selectHuespedes.value) || 1;
         
+        console.log('🔄 Actualizando reserva:', { noches, huespedes });
+        
         if (noches > 0) {
             calcularYActualizarPrecio(alojamiento.precio, noches, huespedes);
             btnReservar.disabled = false;
+            btnReservar.style.opacity = '1';
+            btnReservar.style.cursor = 'pointer';
         } else {
             calcularYActualizarPrecio(alojamiento.precio, 0, huespedes);
             btnReservar.disabled = true;
+            btnReservar.style.opacity = '0.5';
+            btnReservar.style.cursor = 'not-allowed';
         }
-    
+    }
+
+    // Agregar eventos a los inputs
     inputLlegada.addEventListener('change', actualizarDatosReserva);
     inputSalida.addEventListener('change', actualizarDatosReserva);
     selectHuespedes.addEventListener('change', actualizarDatosReserva);
+    
+    // Inicializar
     actualizarDatosReserva();
+
+    // Evento del formulario
     formularioReserva.addEventListener('submit', function(e) {
         e.preventDefault();
+        
+        console.log('📝 Intentando reservar...');
         
         const noches = calcularNumeroNoches();
         const huespedes = selectHuespedes.value;
 
         if (noches <= 0) {
-             alert('Por favor, selecciona fechas de llegada y salida válidas (la salida debe ser posterior a la llegada).');
-             return;
+            alert('Por favor, selecciona fechas de llegada y salida válidas (la salida debe ser posterior a la llegada).');
+            return;
         }
         
         const totalElement = document.querySelector('.desglose-precio .fila-precio.total strong:last-child');
@@ -337,11 +360,14 @@ function calcularYActualizarPrecio(precioPorNoche, noches, huespedes) {
     huespedes = parseInt(huespedes) || 1; 
 
     if (precioPorNoche) {
-        const tarifaLimpieza = 100; 
-        const tarifaServicio = 50;  
-        const subtotal = precioPorNoche * noches * huespedes; 
+        const precioBase = precioPorNoche;
+        const costoHuespedExtra = (huespedes > 1) ? (huespedes - 1) * (precioBase * 0.1) : 0;
+        const precioTotalPorNoche = precioBase + costoHuespedExtra;
+        const tarifaLimpieza = 100;         
+        const tarifaServicio = 50; 
+        const subtotal = precioTotalPorNoche * noches; 
         const total = subtotal + tarifaLimpieza + tarifaServicio;
-        actualizarDesglosePrecioHTML(precioPorNoche, noches, huespedes, subtotal, tarifaLimpieza, tarifaServicio, total);
+        actualizarDesglosePrecioHTML(precioTotalPorNoche, noches, huespedes, subtotal, tarifaLimpieza, tarifaServicio, total);
     }
 }
 
@@ -350,6 +376,12 @@ function calcularYActualizarPrecio(precioPorNoche, noches, huespedes) {
 // ========================================
 function actualizarDesglosePrecioHTML(precioPorNoche, noches, huespedes, subtotal, limpieza, servicio, total) {
     const desglosePrecio = document.querySelector('.desglose-precio');
+    
+    if (!desglosePrecio) {
+        console.error('❌ No se encontró el elemento .desglose-precio');
+        return;
+    }
+    
     if (noches === 0) {
         desglosePrecio.innerHTML = `
             <p style="text-align: center; color: #717171; font-weight: 600;">
@@ -365,7 +397,7 @@ function actualizarDesglosePrecioHTML(precioPorNoche, noches, huespedes, subtota
 
     desglosePrecio.innerHTML = `
         <div class="fila-precio">
-            <span>${precioPorNoche}Bs x ${noches} ${noches === 1 ? 'Noche' : 'Noches'} x ${huespedes} ${huespedes === 1 ? 'Huésped' : 'Huéspedes'}</span>
+            <span>${precioPorNoche}Bs x ${noches} ${noches === 1 ? 'Noche' : 'Noches'}</span>
             <span>${subtotal}Bs</span>
         </div>
         <div class="fila-precio">
@@ -382,5 +414,4 @@ function actualizarDesglosePrecioHTML(precioPorNoche, noches, huespedes, subtota
             <strong>${total}Bs</strong>
         </div>
     `;
-}
 }

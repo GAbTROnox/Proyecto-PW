@@ -216,7 +216,6 @@ body {
 .card-title h3 {
     font-size: 1.1em;
     font-weight: 600;
-    max-width: 80%; /* Para que el rating quepa */
 }
 
 .card-rating {
