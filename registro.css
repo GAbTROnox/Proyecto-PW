@@ -1,0 +1,143 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f7f7f7;
+}
+
+.modal-backdrop {
+    display: block; 
+    position: fixed;
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Negro semitransparente */
+}
+
+/* Contenido de la Modal (la caja blanca) */
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto; /* Centrado vertical y horizontal */
+    width: 90%; 
+    max-width: 560px; /* Ancho máximo en escritorio */
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+/* 2. ENCABEZADO */
+
+.modal-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.modal-header {
+    position: relative;
+    padding: 16px 20px;
+}
+
+.x {
+    position: flex;
+    text-decoration: none; /* Quitar el subrayado del enlace */
+    color: #333; /* Color oscuro */
+    padding: 0; /* Quitar relleno del enlace */
+    cursor: pointer;
+    font-size: 1.5em; /* Tamaño de la X */
+    z-index: 10; /* Asegurar que esté encima de otros elementos */
+}
+
+.x p {
+    margin: 0; 
+    padding: 25 px; 
+    font-weight: bold;
+}
+
+/* 3. CUERPO DE LA MODAL */
+
+.modal-body {
+    padding: 24px;
+}
+
+.welcome-title {
+    color: #ff385c; /* Color de marca */
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-weight: 500;
+}
+
+/* Campos de Formulario */
+.input-group {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+/* Estilos para agrupar los inputs sin bordes internos */
+.input-group:first-child {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.input-group:last-child {
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    box-sizing: border-box;
+    font-size: 1em;
+    outline: none;
+}
+
+/* Aviso de cuenta y política de privacidad */
+.account-notice {
+    font-size: 0.85em;
+    color: #717171;
+    margin-bottom: 16px;
+}
+
+.account-notice a {
+    color: #717171;
+    text-decoration: underline;
+}
+
+/* Botón principal de Continuar */
+.continue-btn {
+    width: 100%;
+    background-color: #ff385c; 
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.continue-btn:hover {
+    background-color: #d92d52;
+}
+
+/* La clase 'active' ya no es necesaria si el display:block está en .modal-backdrop, pero se mantiene por si el JS la usa para ocultar/mostrar */
+/* .modal-backdrop.active {
+    display: block;
+} */
