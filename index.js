@@ -120,6 +120,7 @@ const totalPaginas = 2;         // Total de páginas (12 hoteles / 6 = 2 página
 // CUANDO LA PÁGINA CARGA
 // ========================================
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('✅ index.js cargado correctamente'); // Para debug
     mostrarHoteles();           // Mostrar los primeros 6 hoteles
     configurarPaginacion();     // Configurar los botones de paginación
     configurarBusqueda();       // Configurar el buscador
@@ -129,6 +130,8 @@ document.addEventListener('DOMContentLoaded', function() {
 // FUNCIÓN: MOSTRAR HOTELES
 // ========================================
 function mostrarHoteles() {
+    console.log('📄 Mostrando página:', paginaActual); // Para debug
+    
     // Obtener el contenedor donde van los hoteles
     const contenedor = document.getElementById('listings-grid');
     contenedor.innerHTML = ''; // Limpiar el contenedor
@@ -139,6 +142,7 @@ function mostrarHoteles() {
     
     // Obtener solo los hoteles de esta página
     const hotelesAMostrar = hoteles.slice(inicio, fin);
+    console.log('🏨 Mostrando hoteles:', hotelesAMostrar.length); // Para debug
     
     // Crear una tarjeta para cada hotel
     hotelesAMostrar.forEach(function(hotel) {
@@ -158,14 +162,6 @@ function crearTarjetaHotel(hotel) {
     const tarjeta = document.createElement('article');
     tarjeta.className = 'listing-card';
     
-    // Si es el primer hotel, agregar enlace a página de detalles
-    if (hotel.id === 1) {
-        tarjeta.style.cursor = 'pointer';
-        tarjeta.onclick = function() {
-            window.location.href = 'detalle.html?id=' + hotel.id;
-        };
-    }
-    
     // Crear el HTML interno de la tarjeta
     tarjeta.innerHTML = `
         <div class="image-container">
@@ -183,10 +179,16 @@ function crearTarjetaHotel(hotel) {
                 <span>${hotel.calificacion}</span>
             </div>
             <p class="price">
-                ${hotel.precio} <span>/ noche</span>
+                $${hotel.precio} <span>/ noche</span>
             </p>
         </div>
     `;
+    
+    // ⭐ IMPORTANTE: Hacer que TODOS los hoteles sean clickeables
+    tarjeta.addEventListener('click', function() {
+        console.log('🖱️ Click en hotel ID:', hotel.id, '-', hotel.nombre); // Para debug
+        window.location.href = 'detalle.html?id=' + hotel.id;
+    });
     
     return tarjeta;
 }
@@ -297,12 +299,15 @@ function mostrarResultadosBusqueda(hotelesEncontrados) {
     // Agregar un botón para volver a ver todos
     const contenedorPaginacion = document.getElementById('pagination');
     contenedorPaginacion.innerHTML = `
-        <button onclick="volverATodos()" class="pagination-btn">
+        <button id="btn-volver-todos" class="pagination-btn">
             <i class="fas fa-arrow-left"></i>
             Ver todos los hoteles
         </button>
     `;
     contenedorPaginacion.style.display = 'flex';
+    
+    // Agregar evento al botón de volver
+    document.getElementById('btn-volver-todos').addEventListener('click', volverATodos);
 }
 
 // ========================================
@@ -311,7 +316,6 @@ function mostrarResultadosBusqueda(hotelesEncontrados) {
 function volverATodos() {
     paginaActual = 1;
     mostrarHoteles();
-    configurarPaginacion();
     
     // Restaurar la paginación original
     document.getElementById('pagination').innerHTML = `
