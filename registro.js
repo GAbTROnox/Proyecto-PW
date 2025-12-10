@@ -114,11 +114,11 @@ function mostrarModoRegistro() {
     const welcomeTitle = document.querySelector('.welcome-title');
     const boton = document.querySelector('.continue-btn');
     const form = document.querySelector('.auth-form');
-    
     titulo.innerHTML = '<b>Crear cuenta</b>';
     welcomeTitle.innerHTML = '<b>Bienvenido a BoliStay</b>';
     boton.textContent = 'Registrarse';
     let nombreInput = document.getElementById('nombre');
+}
     if (!nombreInput) {
         const emailGroup = form.querySelector('.input-group');
         const nombreGroup = document.createElement('div');
@@ -129,6 +129,13 @@ function mostrarModoRegistro() {
     const toggleMode = document.getElementById('toggle-mode');
     if (toggleMode) {
         toggleMode.innerHTML = '¿Ya tienes cuenta? <a href="#" id="switch-login"><strong>Inicia sesión</strong></a>';
+    function closeModal() {
+        authModal.style.display = 'none';
+    }
+
+    // 3. Asignar Event Listeners
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', );
     }
     const nuevoForm = form.cloneNode(true);
     form.parentNode.replaceChild(nuevoForm, form);
@@ -160,7 +167,6 @@ function mostrarModoRegistro() {
         }
     });
 }
-
 // ========================================
 // MOSTRAR MODO LOGIN
 // ========================================
@@ -288,10 +294,17 @@ function actualizarInterfazUsuario() {
     if (usuarioTieneSesion()) {
         const usuarioData = JSON.parse(localStorage.getItem('usuarioActual'));
         const iconosUsuario = document.querySelectorAll('.profile-icon');
-        
+    }           
         iconosUsuario.forEach(icono => {
             icono.style.color = '#ff385c';
             icono.title = 'Mi perfil: ' + usuarioData.email;
+        })
+    // 4. Manejo del formulario
+    if (form) {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault(); 
+            alert('Formulario de Continuar enviado (simulación exitosa).');
+            closeModal();
         });
     }
 }

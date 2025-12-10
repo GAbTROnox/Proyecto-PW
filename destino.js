@@ -369,12 +369,8 @@ function applyFilter() {
     } else if (currentFilter === 'caro') {
         filteredAccommodations = accommodations.filter(h => h.precio > 110);
     }
-    
-    // Aplicar ordenamiento después del filtro
     const sortValue = document.getElementById('sort-select').value;
     sortAccommodations(filteredAccommodations, sortValue);
-
-    // Reiniciar paginación y mostrar
     currentPage = 1;
     showAccommodations();
 }
@@ -387,14 +383,8 @@ function setupSorting() {
     
     selectSort.addEventListener('change', function() {
         const sortValue = this.value;
-        
-        // Obtener la lista correcta a ordenar (filtrada o completa)
-        let accommodationsToSort = [...filteredAccommodations]; // Ordenar siempre sobre la lista filtrada
-
-        // Ordenar según la opción seleccionada
+        let accommodationsToSort = [...filteredAccommodations];
         sortAccommodations(accommodationsToSort, sortValue);
-        
-        // Asignar el resultado al array de filtrados y mostrar
         filteredAccommodations = accommodationsToSort;
         currentPage = 1;
         showAccommodations();
@@ -436,18 +426,14 @@ function setupPagination() {
 
     if (currentPageSpan) currentPageSpan.textContent = currentPage;
     if (totalPagesSpan) totalPagesSpan.textContent = totalPages;
-
-    // Habilitar / Deshabilitar botones
     if (prevBtn) prevBtn.disabled = currentPage === 1;
     if (nextBtn) nextBtn.disabled = currentPage === totalPages;
-
-    // Asignar eventos usando .onclick para sobrescribir cualquier controlador anterior
     if (prevBtn) {
         prevBtn.onclick = function() {
             if (currentPage > 1) {
                 currentPage--;
                 showAccommodations();
-                window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll al inicio
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         };
     }
@@ -457,7 +443,7 @@ function setupPagination() {
             if (currentPage < totalPages) {
                 currentPage++;
                 showAccommodations();
-                window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll al inicio
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         };
     }
