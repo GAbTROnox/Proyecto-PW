@@ -170,18 +170,12 @@ const listadoAlojamientos = [
 // CUANDO LA PÁGINA CARGA
 // ========================================
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('✅ logicaDetalle cargada correctamente'); 
-    
-    // 1. Obtener el ID del alojamiento de la URL
+    console.log('✅ logicaDetalle cargada correctamente');
     const params = new URLSearchParams(window.location.search);
-    const alojamientoId = parseInt(params.get('id')); 
-    
-    // 2. Buscar el alojamiento en la lista
+    const alojamientoId = parseInt(params.get('id'));
     const alojamientoSeleccionado = listadoAlojamientos.find(function(h) {
         return h.id === alojamientoId;
     });
-    
-    // 3. Mostrar la información o mensaje de error
     if (alojamientoSeleccionado) {
         mostrarDetalleAlojamiento(alojamientoSeleccionado);
         configurarFormularioReserva(alojamientoSeleccionado);
@@ -239,7 +233,7 @@ function mostrarDetalleAlojamiento(alojamiento) {
             const option = document.createElement('option');
             option.value = i;
             option.textContent = `${i} huésped${i > 1 ? 'es' : ''}`;
-            if (i === 2 && maxHuespedes >= 2) option.selected = true; // Seleccionar 2 si es posible
+            if (i === 2 && maxHuespedes >= 2) option.selected = true;
             selectHuespedes.appendChild(option);
         }
     }
@@ -253,13 +247,10 @@ function mostrarMensajeError() {
     document.title = "Error - Alojamiento no encontrado";
     const contenidoPrincipal = document.querySelector('.contenido-principal'); 
     if (contenidoPrincipal) {
-        // Ocultar la tarjeta de reserva para el error
         const tarjetaReserva = document.querySelector('.tarjeta-reserva');
         if (tarjetaReserva) {
             tarjetaReserva.style.display = 'none';
         }
-        
-        // Mostrar mensaje de error en el contenedor principal
         contenidoPrincipal.innerHTML = `
             <div class="error-container" style="grid-column: 1 / -1; text-align: center; padding: 50px;">
                 <i class="fas fa-exclamation-triangle" style="font-size: 3em; color: #ff385c; margin-bottom: 20px;"></i>
@@ -280,10 +271,7 @@ function configurarFormularioReserva(alojamiento) {
     const inputSalida = document.getElementById('fecha-salida');
     const selectHuespedes = document.getElementById('select-huespedes'); 
     const btnReservar = document.querySelector('.btn-reservar');
-    
     if (!formularioReserva || !inputLlegada || !inputSalida || !selectHuespedes) return;
-
-    // Función para calcular noches
     function calcularNumeroNoches() {
         const dateIn = new Date(inputLlegada.value);
         const dateOut = new Date(inputSalida.value);
@@ -295,6 +283,7 @@ function configurarFormularioReserva(alojamiento) {
         }
         return 0; 
     }
+    
     function actualizarDatosReserva() {
         const noches = calcularNumeroNoches();
         const huespedes = parseInt(selectHuespedes.value) || 1;
@@ -306,14 +295,19 @@ function configurarFormularioReserva(alojamiento) {
             calcularYActualizarPrecio(alojamiento.precio, 0, huespedes);
             btnReservar.disabled = true;
         }
+    }
     
     inputLlegada.addEventListener('change', actualizarDatosReserva);
     inputSalida.addEventListener('change', actualizarDatosReserva);
     selectHuespedes.addEventListener('change', actualizarDatosReserva);
     actualizarDatosReserva();
     formularioReserva.addEventListener('submit', function(e) {
-        e.preventDefault();
+        if (typeof usuarioTieneSesion === 'function' && !usuarioTieneSesion()) {
+            return;
+        }
         
+        e.preventDefault(); 
+
         const noches = calcularNumeroNoches();
         const huespedes = selectHuespedes.value;
 
@@ -382,5 +376,4 @@ function actualizarDesglosePrecioHTML(precioPorNoche, noches, huespedes, subtota
             <strong>${total}Bs</strong>
         </div>
     `;
-}
 }

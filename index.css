@@ -164,7 +164,6 @@ a {
 
 .seccion-listados h2 {
     font-size: 2em;
-    margin-bottom: 40px;
     color: #222222;
 }
 
@@ -534,4 +533,18 @@ a {
     .grid-destinos {
         grid-template-columns: 1fr;
     }
+}
+
+/* BOTON ALOJAMIENTO */
+.titulo-seccion {
+    font-size: 2em;
+    font-weight: bold;
+    color: #222222;
+    margin-bottom: 30px; 
+    text-align: left;
+    padding-top: 20px; 
+}
+
+.seccion-listados {
+    padding-top: 120px; 
 }

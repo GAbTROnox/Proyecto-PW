@@ -1,9 +1,11 @@
+/* ========== ESTILOS GENERALES ========== */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     background-color: #f7f7f7;
 }
 
+/* ========== MODAL BACKDROP ========== */
 .modal-backdrop {
     display: block; 
     position: fixed;
@@ -13,27 +15,62 @@ body {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4); /* Negro semitransparente */
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
-/* Contenido de la Modal (la caja blanca) */
+/* ========== CONTENIDO DE LA MODAL ========== */
 .modal-content {
     background-color: #fff;
-    margin: 10% auto; /* Centrado vertical y horizontal */
+    margin: 5% auto;
     width: 90%; 
-    max-width: 560px; /* Ancho máximo en escritorio */
+    max-width: 560px;
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    position: relative;
+    animation: slideDown 0.3s ease;
 }
 
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
 
-/* 2. ENCABEZADO */
+/* ========== BOTÓN CERRAR (X) ========== */
+.x {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    text-decoration: none;
+    color: #717171;
+    cursor: pointer;
+    font-size: 1.2em;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s;
+    z-index: 10;
+}
 
+.x:hover {
+    background-color: #f0f0f0;
+    color: #222;
+}
+
+/* ========== ENCABEZADO ========== */
 .modal-header {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 16px 20px;
+    padding: 24px 60px 16px;
     border-bottom: 1px solid #eee;
     position: relative;
 }
@@ -42,102 +79,106 @@ body {
     margin: 0;
     font-size: 1em;
     font-weight: bold;
+    color: #222;
 }
 
-.modal-header {
-    position: relative;
-    padding: 16px 20px;
-}
-
-.x {
-    position: flex;
-    text-decoration: none; /* Quitar el subrayado del enlace */
-    color: #333; /* Color oscuro */
-    padding: 0; /* Quitar relleno del enlace */
-    cursor: pointer;
-    font-size: 1.5em; /* Tamaño de la X */
-    z-index: 10; /* Asegurar que esté encima de otros elementos */
-}
-
-.x p {
-    margin: 0; 
-    padding: 25 px; 
-    font-weight: bold;
-}
-
-/* 3. CUERPO DE LA MODAL */
-
+/* ========== CUERPO DE LA MODAL ========== */
 .modal-body {
-    padding: 24px;
+    padding: 32px 24px 24px;
 }
 
 .welcome-title {
-    color: #ff385c; /* Color de marca */
-    font-size: 1.5em;
+    color: #222;
+    font-size: 1.6em;
     margin-top: 0;
     margin-bottom: 24px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
-/* Campos de Formulario */
+/* ========== CAMPOS DE FORMULARIO ========== */
 .input-group {
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    position: relative;
     margin-bottom: 16px;
-    overflow: hidden;
-}
-
-/* Estilos para agrupar los inputs sin bordes internos */
-.input-group:first-child {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-.input-group:last-child {
-    border-top: none;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
 }
 
 .input-group input {
     width: 100%;
-    padding: 12px;
-    border: none;
+    padding: 14px 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     box-sizing: border-box;
     font-size: 1em;
     outline: none;
+    transition: all 0.3s;
+    font-family: inherit;
 }
 
-/* Aviso de cuenta y política de privacidad */
-.account-notice {
-    font-size: 0.85em;
-    color: #717171;
-    margin-bottom: 16px;
+.input-group input:focus {
+    border-color: #ff385c;
+    box-shadow: 0 0 0 2px rgba(255, 56, 92, 0.1);
 }
 
-.account-notice a {
-    color: #717171;
-    text-decoration: underline;
+.input-group input::placeholder {
+    color: #999;
 }
 
-/* Botón principal de Continuar */
+/* ========== BOTÓN PRINCIPAL ========== */
 .continue-btn {
     width: 100%;
-    background-color: #ff385c; 
+    background: linear-gradient(135deg, #ff385c, #e00040);
     color: white;
-    padding: 14px;
+    padding: 16px;
     border: none;
     border-radius: 8px;
     font-size: 1.1em;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(255, 56, 92, 0.3);
 }
 
 .continue-btn:hover {
-    background-color: #d92d52;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 56, 92, 0.4);
 }
 
-/* La clase 'active' ya no es necesaria si el display:block está en .modal-backdrop, pero se mantiene por si el JS la usa para ocultar/mostrar */
-/* .modal-backdrop.active {
-    display: block;
-} */
+.continue-btn:active {
+    transform: translateY(0);
+}
+
+/* ========== FOOTER DE AUTH ========== */
+.auth-footer {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+#toggle-mode {
+    cursor: pointer;
+    color: #717171;
+    transition: color 0.3s;
+}
+
+#toggle-mode:hover {
+    color: #ff385c;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 600px) {
+    .modal-content {
+        margin: 10% auto;
+        width: 95%;
+    }
+    
+    .modal-header {
+        padding: 20px 50px 16px;
+    }
+    
+    .modal-body {
+        padding: 24px 20px 20px;
+    }
+    
+    .welcome-title {
+        font-size: 1.4em;
+    }
+}

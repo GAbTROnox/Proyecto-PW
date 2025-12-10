@@ -3,35 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión Simple</title>
-    <link rel="stylesheet" href="registro.css"> 
+    <title>BoliStay - Autenticación</title>
+    <link rel="stylesheet" href="registro.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div id="auth-modal" class="modal-backdrop">
         <div class="modal-content">
             <a href="index.html" class="x">
-                <p>X</p>
+                <i class="fas fa-times"></i>
             </a>
             <div class="modal-header">
                 <h3><b>Iniciar sesión o registrarse</b></h3>
             </div>
             <div class="modal-body">
                 <h2 class="welcome-title"><b>Bienvenido a BoliStay</b></h2>
+                
                 <form class="auth-form">
                     <div class="input-group">
                         <input type="email" id="email" placeholder="Correo electrónico" required>
                     </div>
                     <div class="input-group">
-                        <input type="password" id="password" placeholder="Contraseña" required>
+                        <input type="password" id="password" placeholder="Contraseña" minlength="6" required>
                     </div>
-                    <p class="account-notice">
-                        Lee nuestra politica de privacidad. <a href="#">Política de Privacidad</a>
-                    </p>    
+                    
                     <button type="submit" class="continue-btn">Continuar</button>
                 </form>
+                <div class="auth-footer">
+                    <p id="toggle-mode" style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #717171;">
+                    </p>
+                </div>
             </div>
         </div>
     </div>
+    
     <script src="registro.js"></script>
 </body>
 </html>
