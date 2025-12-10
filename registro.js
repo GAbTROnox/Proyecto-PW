@@ -1,17 +1,29 @@
+
+
 // ========================================
 // SISTEMA DE AUTENTICACIÓN
 // ========================================
 
-let accionPendiente = null;
-let modoActual = 'registro';
+// Variables globales
+let accionPendiente = null; // Guardar si hay una reserva pendiente
+let modoActual = 'registro'; // 'registro' o 'login'
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('✅ Sistema de autenticación cargado');
+    
+    // Verificar si estamos en la página de registro
     if (document.getElementById('auth-modal')) {
         configurarModalRegistro();
     }
+    
+    // Configurar iconos de usuario en todas las páginas
     configurarIconosUsuario();
+    
+    // Configurar botones de reserva si estamos en página de detalle/índice
     configurarBotonesReserva();
+
+    // Actualizar color del icono de usuario al cargar
+    actualizarInterfazUsuario(); 
 });
 
 // ========================================
@@ -30,11 +42,11 @@ function usuarioTieneSesion() {
     const usuarioActual = localStorage.getItem('usuarioActual');
     
     console.log('🔍 Verificando sesión...');
-    console.log('   - sesionActiva:', sesionActiva);
-    console.log('   - usuarioActual:', usuarioActual ? 'SÍ' : 'NO');
+    console.log('   - sesionActiva:', sesionActiva);
+    console.log('   - usuarioActual:', usuarioActual ? 'SÍ' : 'NO');
     
     const tieneSesion = sesionActiva === 'true' && usuarioActual !== null;
-    console.log('   - Resultado:', tieneSesion ? '✅ TIENE SESIÓN' : '❌ NO TIENE SESIÓN');
+    console.log('   - Resultado:', tieneSesion ? '✅ TIENE SESIÓN' : '❌ NO TIENE SESIÓN');
     
     return tieneSesion;
 }
@@ -85,6 +97,7 @@ function verificarLogin(email, password) {
 function cerrarSesion() {
     localStorage.setItem('sesionActiva', 'false');
     localStorage.removeItem('usuarioActual');
+    localStorage.removeItem('accionPendiente'); // Limpiamos cualquier acción pendiente
     console.log('👋 Sesión cerrada');
     alert('Sesión cerrada correctamente');
     window.location.href = 'index.html';
@@ -94,15 +107,16 @@ function cerrarSesion() {
 // CONFIGURAR MODAL DE REGISTRO
 // ========================================
 function configurarModalRegistro() {
-    const form = document.querySelector('.auth-form');
     const mostrarRegistro = !usuarioEstaRegistrado();
     modoActual = mostrarRegistro ? 'registro' : 'login';
     
-    if (mostrarRegistro) {
+    if (modoActual === 'registro') {
         mostrarModoRegistro();
     } else {
         mostrarModoLogin();
     }
+    
+    // Configuramos el listener para cambio de modo
     configurarBotonCambioModo();
 }
 
@@ -110,35 +124,39 @@ function configurarModalRegistro() {
 // MOSTRAR MODO REGISTRO
 // ========================================
 function mostrarModoRegistro() {
+    const form = document.querySelector('.auth-form');
+    if (!form) return;
+
     const titulo = document.querySelector('.modal-header h3');
     const welcomeTitle = document.querySelector('.welcome-title');
     const boton = document.querySelector('.continue-btn');
-    const form = document.querySelector('.auth-form');
+    
     titulo.innerHTML = '<b>Crear cuenta</b>';
     welcomeTitle.innerHTML = '<b>Bienvenido a BoliStay</b>';
     boton.textContent = 'Registrarse';
+    
+    // 1. Asegurar el campo Nombre
     let nombreInput = document.getElementById('nombre');
-}
     if (!nombreInput) {
-        const emailGroup = form.querySelector('.input-group');
+        const emailGroup = document.getElementById('email').parentNode;
         const nombreGroup = document.createElement('div');
         nombreGroup.className = 'input-group';
         nombreGroup.innerHTML = '<input type="text" id="nombre" placeholder="Nombre completo" required>';
         emailGroup.parentNode.insertBefore(nombreGroup, emailGroup);
+        nombreInput = document.getElementById('nombre'); // Reasignar
     }
+    
+    // 2. Texto de cambio de modo
     const toggleMode = document.getElementById('toggle-mode');
     if (toggleMode) {
         toggleMode.innerHTML = '¿Ya tienes cuenta? <a href="#" id="switch-login"><strong>Inicia sesión</strong></a>';
-    function closeModal() {
-        authModal.style.display = 'none';
     }
 
-    // 3. Asignar Event Listeners
-    if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', );
-    }
+    // 3. Reasignar listener de Submit
+    // Clonar y reemplazar el formulario es la forma más segura de limpiar listeners antiguos
     const nuevoForm = form.cloneNode(true);
     form.parentNode.replaceChild(nuevoForm, form);
+    
     nuevoForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -162,37 +180,50 @@ function mostrarModoRegistro() {
             alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
             modoActual = 'login';
             mostrarModoLogin();
+            // No llamar a configurarBotonCambioModo aquí. El listener es global y se mantiene.
         } else {
             alert(resultado.mensaje);
         }
     });
 }
+
 // ========================================
 // MOSTRAR MODO LOGIN
 // ========================================
 function mostrarModoLogin() {
+    const form = document.querySelector('.auth-form');
+    if (!form) return;
+
     const titulo = document.querySelector('.modal-header h3');
     const welcomeTitle = document.querySelector('.welcome-title');
     const boton = document.querySelector('.continue-btn');
-    const form = document.querySelector('.auth-form');
     
     titulo.innerHTML = '<b>Iniciar sesión</b>';
     welcomeTitle.innerHTML = '<b>¡Bienvenido de vuelta!</b>';
     boton.textContent = 'Iniciar sesión';
-    const nombreGroup = form.querySelector('.input-group:has(#nombre)');
+    
+    // 1. Eliminar el campo Nombre (si existe)
+    const nombreGroup = document.getElementById('nombre')?.closest('.input-group');
     if (nombreGroup) {
         nombreGroup.remove();
     }
-    const toggleMode = document.getElementById('toggle-mode');
-    if (toggleMode) {
-        toggleMode.innerHTML = '¿No tienes cuenta? <a href="#" id="switch-registro"><strong>Regístrate</strong></a>';
-    }
+    
+    // 2. Limpiar campos
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     if (emailInput) emailInput.value = '';
     if (passwordInput) passwordInput.value = '';
+
+    // 3. Texto de cambio de modo
+    const toggleMode = document.getElementById('toggle-mode');
+    if (toggleMode) {
+        toggleMode.innerHTML = '¿No tienes cuenta? <a href="#" id="switch-registro"><strong>Regístrate</strong></a>';
+    }
+
+    // 4. Reasignar listener de Submit
     const nuevoForm = form.cloneNode(true);
     form.parentNode.replaceChild(nuevoForm, form);
+
     nuevoForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -211,15 +242,17 @@ function mostrarModoLogin() {
         if (resultado.exito) {
             console.log('✅ Login exitoso, redirigiendo...');
             alert('¡Login exitoso! Bienvenido a BoliStay');
-            if (resultado.exito) {
-        console.log('✅ Login exitoso, redirigiendo...');
-        alert('¡Login exitoso! Bienvenido a BoliStay');
-        if (accionPendiente === 'reservar') {
-            window.history.back(); 
-        } else {
-            window.location.href = 'index.html';
-        }
-    }
+            
+            // Actualizar interfaz antes de la redirección
+            actualizarInterfazUsuario(); 
+            
+            if (accionPendiente === 'reservar') {
+                // Volver a la página de detalle para intentar la reserva de nuevo (ahora con sesión)
+                window.history.back(); 
+            } else {
+                // Ir al inicio
+                window.location.href = 'index.html';
+            }
         } else {
             alert(resultado.mensaje);
         }
@@ -230,19 +263,24 @@ function mostrarModoLogin() {
 // CONFIGURAR BOTÓN DE CAMBIO DE MODO
 // ========================================
 function configurarBotonCambioModo() {
+    // Escucha clics en todo el documento
     document.addEventListener('click', function(e) {
+        // Lógica para cambiar a Login
         if (e.target.id === 'switch-login' || e.target.parentElement.id === 'switch-login') {
             e.preventDefault();
-            modoActual = 'login';
-            mostrarModoLogin();
-            configurarBotonCambioModo();
+            if (modoActual !== 'login') {
+                modoActual = 'login';
+                mostrarModoLogin();
+            }
         }
         
+        // Lógica para cambiar a Registro
         if (e.target.id === 'switch-registro' || e.target.parentElement.id === 'switch-registro') {
             e.preventDefault();
-            modoActual = 'registro';
-            mostrarModoRegistro();
-            configurarBotonCambioModo();
+            if (modoActual !== 'registro') {
+                modoActual = 'registro';
+                mostrarModoRegistro();
+            }
         }
     });
 }
@@ -251,7 +289,7 @@ function configurarBotonCambioModo() {
 // CONFIGURAR ICONOS DE USUARIO
 // ========================================
 function configurarIconosUsuario() {
-    const iconosUsuario = document.querySelectorAll('.profile-icon, .btn-usuario');
+    const iconosUsuario = document.querySelectorAll('.icono-perfil'); // Usar selector correcto del index.html
     
     iconosUsuario.forEach(icono => {
         icono.addEventListener('click', function(e) {
@@ -270,18 +308,22 @@ function configurarIconosUsuario() {
 // CONFIGURAR BOTONES DE RESERVA (En registro.js)
 // ========================================
 function configurarBotonesReserva() {
+    // Usamos selectores más genéricos
     const botonesReserva = document.querySelectorAll('.btn-reservar, .btn-reserve');
 
     botonesReserva.forEach(boton => {
         const form = boton.closest('form');
         if (form) {
             form.addEventListener('submit', function(e) {
+                // Esta lógica se ejecuta primero en cualquier página
                 if (!usuarioTieneSesion()) { 
                     e.preventDefault();
-                    accionPendiente = 'reservar';
+                    // Guardar la acción pendiente ANTES de redirigir
+                    localStorage.setItem('accionPendiente', 'reservar'); 
                     alert('Para reservar, primero debes iniciar sesión');
                     window.location.href = 'Registro.html';
                 }
+                // Si tiene sesión, el submit continúa y detalle.js se encarga de la reserva
             });
         }
     });
@@ -291,22 +333,21 @@ function configurarBotonesReserva() {
 // ACTUALIZAR ESTADO DE LA INTERFAZ
 // ========================================
 function actualizarInterfazUsuario() {
+    const iconosUsuario = document.querySelectorAll('.icono-perfil'); // Selector del icono en el header
+    
     if (usuarioTieneSesion()) {
         const usuarioData = JSON.parse(localStorage.getItem('usuarioActual'));
-        const iconosUsuario = document.querySelectorAll('.profile-icon');
-    }           
+        
         iconosUsuario.forEach(icono => {
-            icono.style.color = '#ff385c';
-            icono.title = 'Mi perfil: ' + usuarioData.email;
-        })
-    // 4. Manejo del formulario
-    if (form) {
-        form.addEventListener('submit', (event) => {
-            event.preventDefault(); 
-            alert('Formulario de Continuar enviado (simulación exitosa).');
-            closeModal();
+            // Cambiar el estilo para indicar sesión activa (ej. color)
+            icono.style.color = '#ff385c'; 
+            icono.title = 'Mi perfil: ' + (usuarioData.nombre || 'Usuario');
+        });
+    } else {
+        iconosUsuario.forEach(icono => {
+            // Restaurar estilo si no hay sesión
+            icono.style.color = '#222222'; 
+            icono.title = 'Iniciar sesión / Registrarse';
         });
     }
 }
-
-actualizarInterfazUsuario();
