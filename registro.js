@@ -242,15 +242,11 @@ function mostrarModoLogin() {
         if (resultado.exito) {
             console.log('✅ Login exitoso, redirigiendo...');
             alert('¡Login exitoso! Bienvenido a BoliStay');
-            
-            // Actualizar interfaz antes de la redirección
             actualizarInterfazUsuario(); 
             
             if (accionPendiente === 'reservar') {
-                // Volver a la página de detalle para intentar la reserva de nuevo (ahora con sesión)
                 window.history.back(); 
             } else {
-                // Ir al inicio
                 window.location.href = 'index.html';
             }
         } else {
@@ -263,9 +259,7 @@ function mostrarModoLogin() {
 // CONFIGURAR BOTÓN DE CAMBIO DE MODO
 // ========================================
 function configurarBotonCambioModo() {
-    // Escucha clics en todo el documento
     document.addEventListener('click', function(e) {
-        // Lógica para cambiar a Login
         if (e.target.id === 'switch-login' || e.target.parentElement.id === 'switch-login') {
             e.preventDefault();
             if (modoActual !== 'login') {
@@ -273,8 +267,6 @@ function configurarBotonCambioModo() {
                 mostrarModoLogin();
             }
         }
-        
-        // Lógica para cambiar a Registro
         if (e.target.id === 'switch-registro' || e.target.parentElement.id === 'switch-registro') {
             e.preventDefault();
             if (modoActual !== 'registro') {
@@ -289,7 +281,7 @@ function configurarBotonCambioModo() {
 // CONFIGURAR ICONOS DE USUARIO
 // ========================================
 function configurarIconosUsuario() {
-    const iconosUsuario = document.querySelectorAll('.icono-perfil'); // Usar selector correcto del index.html
+    const iconosUsuario = document.querySelectorAll('.icono-perfil');
     
     iconosUsuario.forEach(icono => {
         icono.addEventListener('click', function(e) {
@@ -308,22 +300,17 @@ function configurarIconosUsuario() {
 // CONFIGURAR BOTONES DE RESERVA (En registro.js)
 // ========================================
 function configurarBotonesReserva() {
-    // Usamos selectores más genéricos
     const botonesReserva = document.querySelectorAll('.btn-reservar, .btn-reserve');
-
     botonesReserva.forEach(boton => {
         const form = boton.closest('form');
         if (form) {
             form.addEventListener('submit', function(e) {
-                // Esta lógica se ejecuta primero en cualquier página
                 if (!usuarioTieneSesion()) { 
                     e.preventDefault();
-                    // Guardar la acción pendiente ANTES de redirigir
                     localStorage.setItem('accionPendiente', 'reservar'); 
                     alert('Para reservar, primero debes iniciar sesión');
                     window.location.href = 'Registro.html';
                 }
-                // Si tiene sesión, el submit continúa y detalle.js se encarga de la reserva
             });
         }
     });
@@ -333,19 +320,17 @@ function configurarBotonesReserva() {
 // ACTUALIZAR ESTADO DE LA INTERFAZ
 // ========================================
 function actualizarInterfazUsuario() {
-    const iconosUsuario = document.querySelectorAll('.icono-perfil'); // Selector del icono en el header
+    const iconosUsuario = document.querySelectorAll('.icono-perfil');
     
     if (usuarioTieneSesion()) {
         const usuarioData = JSON.parse(localStorage.getItem('usuarioActual'));
         
         iconosUsuario.forEach(icono => {
-            // Cambiar el estilo para indicar sesión activa (ej. color)
             icono.style.color = '#ff385c'; 
             icono.title = 'Mi perfil: ' + (usuarioData.nombre || 'Usuario');
         });
     } else {
         iconosUsuario.forEach(icono => {
-            // Restaurar estilo si no hay sesión
             icono.style.color = '#222222'; 
             icono.title = 'Iniciar sesión / Registrarse';
         });
